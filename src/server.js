@@ -4,6 +4,22 @@ const jsonHandler = require('./jsonResponses.js')
 const htmlHandler = require('./htmlResponses.js')
 const query = require('querystring')
 
+//think about what you want to make.
+//i want to use the data in some way too
+//pokemon is fun and cool and all but i've used pokemon so many times already
+//a destiny exotic type thing where you could make a weapon could be cool
+//each weapon would have a few things
+//name - string, any
+//archetype (sniper, sword, etc) - string, check validity against an enum
+//slot (kinetic energy power) - string, check validity against an enum
+//element (arc void solar stasis strand kinetic) - string, check validity against an enum
+//perk name could be fun as well - string, any
+//whereToGet or howToObtain could be nested, with quest name - string (any), activity - string (any), and drop chance - double (any double) or something
+//things like ergo sum would be static unless i wanted to take an array... which could be interesting for the builder!
+//and conditional finality, and tessellation
+//though tessellation i would list as kinetic because it does show as kinetic in the collections
+
+
 const urlStruct = {
     '/': htmlHandler.getIndex,
     index: htmlHandler.getIndex,    
