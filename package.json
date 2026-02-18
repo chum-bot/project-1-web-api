@@ -1,0 +1,26 @@
+{
+  "name": "project-1-web-api",
+  "version": "1.0.0",
+  "main": "./src/server.js",
+  "scripts": {
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\"",
+    "start": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chum-bot/project-1-web-api.git"
+  },
+  "author": "Zach Etienne",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/chum-bot/project-1-web-api/issues"
+  },
+  "homepage": "https://github.com/chum-bot/project-1-web-api#readme",
+  "description": "",
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0"
+  }
+}
