@@ -1,0 +1,206 @@
+[
+    {
+        "name": "normal",
+        "weaknesses": [
+            "fighting"
+        ],
+        "resistances": [],
+        "immunities": [
+            "ghost"
+        ]
+    },
+    {
+        "name": "fire",
+        "weaknesses": [
+            "water",
+            "rock",
+            "ground"
+        ],
+        "resistances": [
+            "fire",
+            "grass",
+            "ice",
+            "bug"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "water",
+        "weaknesses": [
+            "electric",
+            "grass"
+        ],
+        "resistances": [
+            "fire",
+            "water",
+            "ice"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "electric",
+        "weaknesses": [
+            "ground"
+        ],
+        "resistances": [
+            "electric",
+            "flying"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "grass",
+        "weaknesses": [
+            "fire",
+            "bug",
+            "ice",
+            "poison"
+        ],
+        "resistances": [
+            "water",
+            "grass",
+            "electric",
+            "ground"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "ice",
+        "weaknesses": [
+            "fire",
+            "rock",
+            "fighting"
+        ],
+        "resistances": [
+            "ice"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "fighting",
+        "weaknesses": [
+            "flying",
+            "psychic"
+        ],
+        "resistances": [
+            "bug",
+            "rock"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "poison",
+        "weaknesses": [
+            "ground",
+            "psychic"
+        ],
+        "resistances": [
+            "fighting",
+            "grass",
+            "poison",
+            "bug"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "ground",
+        "weaknesses": [
+            "water",
+            "grass",
+            "ice"
+        ],
+        "resistances": [
+            "poison",
+            "rock"
+        ],
+        "immunities": [
+            "electric"
+        ]
+    },
+    {
+        "name": "flying",
+        "weaknesses": [
+            "electric",
+            "rock",
+            "ice"
+        ],
+        "resistances": [
+            "grass",
+            "fighting",
+            "bug"
+        ],
+        "immunities": [
+            "ground"
+        ]
+    },
+    {
+        "name": "psychic",
+        "weaknesses": [
+            "bug",
+            "ghost"
+        ],
+        "resistances": [
+            "fighting",
+            "psychic"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "bug",
+        "weaknesses": [
+            "fire",
+            "rock",
+            "flying"
+        ],
+        "resistances": [
+            "grass",
+            "fighting",
+            "ground"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "rock",
+        "weaknesses": [
+            "water",
+            "grass",
+            "ground",
+            "fighting"
+        ],
+        "resistances": [
+            "fire",
+            "normal",
+            "poison",
+            "flying"
+        ],
+        "immunities": []
+    },
+    {
+        "name": "ghost",
+        "weaknesses": [
+            "ghost"
+        ],
+        "resistances": [
+            "poison",
+            "bug"
+        ],
+        "immunities": [
+            "normal",
+            "fighting"
+        ]
+    },
+    {
+        "name": "dragon",
+        "weaknesses": [
+            "dragon",
+            "ice"
+        ],
+        "resistances": [
+            "fire",
+            "grass",
+            "water",
+            "electric"
+        ],
+        "immunities": []
+    }
+]

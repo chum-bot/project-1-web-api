@@ -1,6 +1,7 @@
 const fs = require('fs')
 
 const index = fs.readFileSync(`${__dirname}/../client/client.html`);
+const doc = fs.readFileSync(`${__dirname}/../client/documentation.html`);
 const css = fs.readFileSync(`${__dirname}/../client/style.css`);
 
 //our general response function, i'm exporting it out of here for use later
@@ -20,9 +21,13 @@ function getIndex(request, response){
 function getCSS(request, response){
     respond(request, response, 200, css, 'text/css');
 }
+function getDocumentation(request, response){
+    respond(request, response, 200, doc, 'text/html');
+}
 
 module.exports = {
     getIndex,
     getCSS,
+    getDocumentation,
     respond
 }

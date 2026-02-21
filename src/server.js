@@ -1,32 +1,21 @@
 const http = require('http')
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
-const jsonHandler = require('./jsonResponses.js')
+const getHandler = require('./getResponses.js')
+const postHandler = require('./postResponses.js')
 const htmlHandler = require('./htmlResponses.js')
 const query = require('querystring')
 
-//think about what you want to make.
-//i want to use the data in some way too
-//pokemon is fun and cool and all but i've used pokemon so many times already
-//a destiny exotic type thing where you could make a weapon could be cool
-//each weapon would have a few things
-//name - string, any
-//archetype (sniper, sword, etc) - string, check validity against an enum
-//slot (kinetic energy power) - string, check validity against an enum
-//element (arc void solar stasis strand kinetic) - string, check validity against an enum
-//perk name could be fun as well - string, any
-//whereToGet or howToObtain could be nested, with quest name - string (any), activity - string (any), and drop chance - double (any double) or something
-//things like ergo sum would be static unless i wanted to take an array... which could be interesting for the builder!
-//and conditional finality, and tessellation
-//though tessellation i would list as kinetic because it does show as kinetic in the collections
-
-
 const urlStruct = {
     '/': htmlHandler.getIndex,
-    index: htmlHandler.getIndex,    
+    index: htmlHandler.getIndex,  
+    '/documentation': htmlHandler.getDocumentation,  
     '/style.css': htmlHandler.getCSS,
-    '/getUsers': jsonHandler.getUsers,
-    '/notReal': jsonHandler.getNotFound,
-    '/addUser': jsonHandler.addUser
+    '/getAll': getHandler.getAll,
+    '/getByName': getHandler.getByName,
+    '/getByDexNumber': getHandler.getByDexNumber,
+    '/getByType': getHandler.getByType,
+    '/createPokemon': postHandler.createPokemon,
+    '/changeType': postHandler.changeType
 }
 
 function parseBody(request, response, handler) {
@@ -73,7 +62,7 @@ function handleGet(request, response, parsedUrl) {
     if(handler) {
         return handler(request, response);
     }
-    return jsonHandler.getNotFound(request, response);
+    return getHandler.getNotFound(request, response);
 }
 
 //hm... with this implementation would it then be possible to run one of the get urls through this post
@@ -89,12 +78,15 @@ function handlePost(request, response, parsedUrl) {
     if(handler) {
         return parseBody(request, response, handler);
     }
-    return jsonHandler.getNotFound(request, response);
+    return getHandler.getNotFound(request, response);
 }
 
 function onRequest(request, response) {
     const protocol = request.connection.encrypted ? 'https' : 'http';
     const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
+    
+    if(request.headers.accept) {request.acceptedTypes = request.headers.accept.split(',');}
+    request.query = Object.fromEntries(parsedUrl.searchParams);
 
     if(request.method === "POST") {
         return handlePost(request, response, parsedUrl);

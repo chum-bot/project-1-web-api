@@ -60,32 +60,80 @@
       handleResponse(response)
     }
 
-    async function sendGet(userForm) {
-      const url = userForm.querySelector('#urlField').value;
-      const method = userForm.querySelector('#methodSelect').value;
+    async function sendGet(form, query = '') {
+      let url = form.action;
+      const method = form.method;
+      url += query;
 
       const response = await fetch(url, {
         method,
         headers: {
           'Accept': 'application/json'
-        },
+        }
       })
       handleResponse(response)
     }
 
+    async function getAll(form){
+      await sendGet(form);
+    }
+
+    async function getByName(form) {
+      const name = form.querySelector('#name').value;
+      let query = `?name=${name}`
+
+      await sendGet(form, query)
+    }
+
+    async function getByType(form) {
+      //so what we want to do is
+      //take out all the types we selected, and build the query with them
+      const allSelectedTypes = form.querySelectorAll('input[name=type]:checked')
+
+      let query = "?types=" //the beginning
+      allSelectedTypes.forEach(type => {
+        console.log(type)
+        query += `${type.value},`;
+        //this leaves a blank item at the end once i split it but it's fine
+      })
+
+      await sendGet(form, query);
+    }
+
+    async function getByDexNumber(form) {
+      const num = form.querySelector('#number').value;
+      let query = `?dexNumber=${num}`
+
+      await sendGet(form, query)
+    }
+
     function init() {
-      const nameForm = document.querySelector("#nameForm");
-      const userForm = document.querySelector("#userForm")
+      const nameForm = document.querySelector("#getByNameForm");
+      const allForm = document.querySelector("#getAllForm");
+      const typeForm = document.querySelector("#getByTypeForm");
+      const numberForm = document.querySelector('#getByNumberForm')
 
       nameForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        sendPost(nameForm);
+        getByName(nameForm);
         return false;
       })
 
-      userForm.addEventListener('submit', (e) => {
+      allForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        sendGet(userForm);
+        getAll(allForm);
+        return false;
+      })
+
+      typeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        getByType(typeForm);
+        return false;
+      })
+
+      numberForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        getByDexNumber(numberForm);
         return false;
       })
     }
@@ -95,25 +143,95 @@
 </head>
 <body>
   <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
-    </form>
-    <form id="userForm" action="/getUsers" method="get">
-      <select id='urlField'>
-        <option value='/getUsers'>/getUsers</option>
-        <option value='/notReal'>/notReal</option>
-      </select>
-      <select id="methodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get User" />
-    </form>
+    <h3>Pokedex Lookup Tool</h3>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get All Pokemon</h2>
+      <p>No parameters needed.</p>
+      <form id="getAllForm" action="/getAll" method="get">
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Name</h2>
+      <form id="getByNameForm" action="/getByName" method="get">
+        <label for="getName">Name</label>
+        <input type="text" name="name" id="name">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Type</h2>
+      <form id="getByTypeForm" action="/getByType" method="get">
+        <input type="checkbox" name="type" id="getNormal" value = "normal">
+        <label for="getNormal">Normal</label>
+        <input type="checkbox" name="type" id="getFire" value="fire">
+        <label for="getFire">Fire</label>
+        <input type="checkbox" name="type" id="getWater" value="water">
+        <label for="getWater">Water</label>
+        <input type="checkbox" name="type" id="getGrass" value="grass">
+        <label for="getGrass">Grass</label>
+        <input type="checkbox" name="type" id="getElectric" value="electric">
+        <label for="getElectric">Electric</label>
+        <br>
+        <input type="checkbox" name="type" id="getGhost" value="ghost">
+        <label for="getGhost">Ghost</label>
+        <input type="checkbox" name="type" id="getFighting" value="fighting">
+        <label for="getFighting">Fighting</label>
+        <input type="checkbox" name="type" id="getRock" value="rock">
+        <label for="getRock">Rock</label>
+        <input type="checkbox" name="type" id="getDragon" value="dragon">
+        <label for="getDragon">Dragon</label>
+        <input type="checkbox" name="type" id="getGround" value="ground">
+        <label for="getGround">Ground</label>
+        <br>
+        <input type="checkbox" name="type" id="getFlying" value="flying">
+        <label for="getFlying">Flying</label>
+        <input type="checkbox" name="type" id="getPoison" value="poison">
+        <label for="getPoison">Poison</label>
+        <input type="checkbox" name="type" id="getBug" value="bug">
+        <label for="getBug">Bug</label>
+        <input type="checkbox" name="type" id="getPsychic" value="psychic">
+        <label for="getPsychic">Psychic</label>
+        <input type="checkbox" name="type" id="getIce" value="ice">
+        <label for="getPsychic">Ice</label>
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Pokedex Number</h2>
+      <form id="getByNumberForm" action="/getByDexNumber" method="get">
+        <label for="getNumber">Pokedex Number</label>
+        <input type="number" name="number" id="number" min="1" max="151">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Create Pokemon</h2>
+      <form id="createMonForm" action="/createPokemon" method="post">
+        <label for="postName">Name</label>
+        <input type="text" name="name" id="postName">
+        <br>
+        <label for="postImgLink">Image Link</label>
+        <input type="text" name="link" id="postImg">
+        <br>
+        <label for="postType1">Type 1</label>
+        <input type="text" name="type1" id="postType1">
+        <br>
+        <label for="postType2">Type 2</label>
+        <input type="text" name="type2" id="postType2">
+        <br>
+        <label for="postHeight">Height (m)</label>
+        <input type="number" name="height" id="postHeight">
+        <br>
+        <label for="postWeight">Weight (kg)</label>
+        <input type="number" name="weight" id="postWeight">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
   </section>
   <section id="content">
   </section>
