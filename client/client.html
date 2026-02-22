@@ -140,20 +140,23 @@
       const immune = form.querySelector('#typeImmune');
 
       //create an array from the collection, and only get the values from em
-      const allWeakTypes = Array.from(weak.querySelectorAll('input[name=type]:checked')).map(t => t.value);
-      const allResTypes = Array.from(res.querySelectorAll('input[name=type]:checked')).map(t => t.value);
-      const allImmuneTypes = Array.from(immune.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const weaknesses = Array.from(weak.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const resistances = Array.from(res.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const immunities = Array.from(immune.querySelectorAll('input[name=type]:checked')).map(t => t.value);
 
-      const body = {
-        name,
-        weaknesses: allWeakTypes,
-        resistances: allResTypes,
-        immunities: allImmuneTypes
-      }
-
-      const formData = JSON.stringify(body)
+      const formData = JSON.stringify({name, weaknesses, resistances, immunities})
 
       await sendPost(form, formData);
+    }
+
+    async function changeType(form) {
+      const name = form.querySelector('#typeName').value;
+      const type1 = form.querySelector('#type1').value;
+      const type2 = form.querySelector('#type2').value;
+
+      const formData = JSON.stringify({name, type1, type2});
+
+      await sendPost(form, formData)
     }
 
     //using this to update the type displays as the types array is updated via createType
@@ -222,6 +225,7 @@
       formSetup("#getByNumberForm", getByDexNumber);
       formSetup("#createMonForm", createPokemon);
       formSetup("#createTypeForm", createType);
+      formSetup("#changeTypeForm", changeType);
       //i could do the same thing i did for the urls here and make an object that stores each of these
       //that might be a little more elegant
     }
@@ -298,21 +302,30 @@
         <br>
         <label for="typeWeak">Weaknesses</label>
         <br>
-       <div id="typeWeak">
-
-       </div>
+       <div id="typeWeak"></div>
         <br>
         <label for="typeRes">Resistances</label>
         <br>
-       <div id="typeRes">
-        
-       </div>
+       <div id="typeRes"></div>
         <br>
         <label for="typeImmune">Immunities</label>
         <br>
-       <div id="typeImmune">
-        
-       </div>
+       <div id="typeImmune"></div>
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Edit a Pokemon's Type</h2>
+      <form id="changeTypeForm" action="/changeType" method="post">
+        <label for="typeName">Name</label>
+        <input type="text" name="name" id="typeName">
+        <br>
+        <label for="type1">Type 1</label>
+        <input type="text" name="type1" id="type1">
+        <br>
+        <label for="type2">Type 2</label>
+        <input type="text" name="type2" id="type2">
         <br>
         <input type="submit" value="Submit"/>
       </form>
