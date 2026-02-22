@@ -11,6 +11,7 @@ const urlStruct = {
     '/documentation': htmlHandler.getDocumentation,  
     '/style.css': htmlHandler.getCSS,
     '/getAll': getHandler.getAll,
+    '/getAllTypes': getHandler.getAllTypes,
     '/getByName': getHandler.getByName,
     '/getByDexNumber': getHandler.getByDexNumber,
     '/getByType': getHandler.getByType,

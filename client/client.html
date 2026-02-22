@@ -5,7 +5,6 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
-
     async function handleResponse(response) {
       const content = document.querySelector('#content');
 
@@ -31,7 +30,7 @@
 
       const responseObj = await response.json();
       if(responseObj.message) {
-        content.innerHTML += `<p>Message: ${responseObj.message}</p>`
+        content.innerHTML += `<p>${responseObj.message}</p>`
       }
       else {
         content.innerHTML += `<p>${JSON.stringify(responseObj.users)}</p>`
@@ -100,11 +99,13 @@
       //take out all the types we selected, and build the query with them
       const allSelectedTypes = form.querySelectorAll('input[name=type]:checked')
 
-      let query = "?types=" //the beginning
+      let query = "?types=" //the beginning of every query
       allSelectedTypes.forEach(type => {
         console.log(type)
         query += `${type.value},`;
-        //this leaves a blank item at the end once i split it but it's fine
+        //comma separated list in a query... 
+        //only doing this bc gets can't have a request body and i want to be able to select multiple types at once
+        //this specific implementation leaves a blank item at the end once i split it but it's fine
       })
 
       await sendGet(form, query);
@@ -126,12 +127,85 @@
         return false;
       })
     }
+
+    async function createType(form) {
+      const name = form.querySelector('#typeName').value;
+      const weak = form.querySelector('#typeWeak');
+      const res = form.querySelector('#typeRes');
+      const immune = form.querySelector('#typeImmune');
+
+      //create an array from the collection, and only get the values from em
+      const allWeakTypes = Array.from(weak.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const allResTypes = Array.from(res.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const allImmuneTypes = Array.from(immune.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+
+      const body = {
+        name,
+        weaknesses: allWeakTypes,
+        resistances: allResTypes,
+        immunities: allImmuneTypes
+      }
+
+      const formData = JSON.stringify(body)
+
+      await sendPost(form, formData);
+    }
+
+    //using this to update the type displays as the types array is updated via createType
+    //handleResponse as well as init will use this to populate the form elements when types are updated
+    async function updateTypes() {
+
+      //we get the types response
+      const response = await fetch('/getAllTypes', {
+        method: "GET",
+        headers: {
+          "Accept": "/application/json"
+        }
+      });
+      const allTypes = await response.json();
+      
+      //we get the forms themselves
+      const createTypeForm = document.querySelector('#createTypeForm');
+      const getTypeForm = document.querySelector('#getByTypeForm');
+
+      //and the elements within them that hold the type options
+      const weak = createTypeForm.querySelector('#typeWeak');
+      const res = createTypeForm.querySelector('#typeRes');
+      const immune = createTypeForm.querySelector('#typeImmune');
+      const get = getTypeForm.querySelector('#getByType');
+
+      //put em in an array, clear them (so it doesn't override anything)
+      const typeHolders = [weak, res, immune, get]
+      typeHolders.forEach(h => h.innerHTML = '');
+
+      for(const t of allTypes){
+        for(const h of typeHolders){
+        const typeOption = document.createElement('input');
+        typeOption.type = 'checkbox';
+        typeOption.name = 'type';
+        typeOption.value = t.name;
+        typeOption.id = t.name;
+
+        const label = document.createElement('label');
+        label.innerText = t.name[0].toUpperCase() + t.name.substring(1);
+        label.for = t.name;
+
+        h.appendChild(typeOption);
+        h.appendChild(label);
+        }
+      }
+    }
+
     function init() {
+      updateTypes();
       formSetup("#getByNameForm", getByName);
       formSetup("#getAllForm", getAll);
       formSetup("#getByTypeForm", getByType);
       formSetup("#getByNumberForm", getByDexNumber);
       formSetup("#createMonForm", createPokemon);
+      formSetup("#createTypeForm", createType);
+      //i could do the same thing i did for the urls here and make an object that stores each of these
+      //that might be a little more elegant
     }
 
     window.onload = init;
@@ -159,39 +233,9 @@
     <div class="endpointBox">
       <h2 class="endpointHeader">Get Pokemon By Type</h2>
       <form id="getByTypeForm" action="/getByType" method="get">
-        <input type="checkbox" name="type" id="getNormal" value = "normal">
-        <label for="getNormal">Normal</label>
-        <input type="checkbox" name="type" id="getFire" value="fire">
-        <label for="getFire">Fire</label>
-        <input type="checkbox" name="type" id="getWater" value="water">
-        <label for="getWater">Water</label>
-        <input type="checkbox" name="type" id="getGrass" value="grass">
-        <label for="getGrass">Grass</label>
-        <input type="checkbox" name="type" id="getElectric" value="electric">
-        <label for="getElectric">Electric</label>
-        <br>
-        <input type="checkbox" name="type" id="getGhost" value="ghost">
-        <label for="getGhost">Ghost</label>
-        <input type="checkbox" name="type" id="getFighting" value="fighting">
-        <label for="getFighting">Fighting</label>
-        <input type="checkbox" name="type" id="getRock" value="rock">
-        <label for="getRock">Rock</label>
-        <input type="checkbox" name="type" id="getDragon" value="dragon">
-        <label for="getDragon">Dragon</label>
-        <input type="checkbox" name="type" id="getGround" value="ground">
-        <label for="getGround">Ground</label>
-        <br>
-        <input type="checkbox" name="type" id="getFlying" value="flying">
-        <label for="getFlying">Flying</label>
-        <input type="checkbox" name="type" id="getPoison" value="poison">
-        <label for="getPoison">Poison</label>
-        <input type="checkbox" name="type" id="getBug" value="bug">
-        <label for="getBug">Bug</label>
-        <input type="checkbox" name="type" id="getPsychic" value="psychic">
-        <label for="getPsychic">Psychic</label>
-        <input type="checkbox" name="type" id="getIce" value="ice">
-        <label for="getPsychic">Ice</label>
-        <br>
+        <div id="getByType">
+
+        </div>
         <input type="submit" value="Submit"/>
       </form>
     </div>
@@ -224,6 +268,33 @@
         <br>
         <label for="postWeight">Weight (kg)</label>
         <input type="number" name="weight" id="postWeight" step=".01">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Create Type</h2>
+      <form id="createTypeForm" action="/createType" method="post">
+        <label for="typeName">Name</label>
+        <input type="text" name="name" id="typeName">
+        <br>
+        <label for="typeWeak">Weaknesses</label>
+        <br>
+       <div id="typeWeak">
+
+       </div>
+        <br>
+        <label for="typeRes">Resistances</label>
+        <br>
+       <div id="typeRes">
+        
+       </div>
+        <br>
+        <label for="typeImmune">Immunities</label>
+        <br>
+       <div id="typeImmune">
+        
+       </div>
         <br>
         <input type="submit" value="Submit"/>
       </form>

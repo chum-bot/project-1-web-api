@@ -53,6 +53,7 @@ function createPokemon(request, response){
 //we'll handle the checkings later
 function createType(request, response){
     const {name, weaknesses, resistances, immunities} = request.body;
+    console.log(request.body);
 
     let newType = {
         name,
@@ -65,12 +66,12 @@ function createType(request, response){
     return r.respond(request, response, 201, newType, 'application/json')
 }
 
-function changeType(request, response){
+// function changeType(request, response){
     
-}
+// }
 
 module.exports = {
     createPokemon,
-    changeType,
+    //changeType,
     createType
 }

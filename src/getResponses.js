@@ -1,10 +1,16 @@
 const r = require('./htmlResponses.js')
 const allPokemon = require('../data/pokedex.json');
+const allTypes = require('../data/types.json');
 
 //getAll
 //just gets and shows all of the pokemon
 function getAll(request, response) {
     r.respond(request, response, 200, allPokemon, 'application/json')
+}
+//getAllTypes
+//just gets and shows all of the pokemon
+function getAllTypes(request, response) {
+    r.respond(request, response, 200, allTypes, 'application/json')
 }
 
 //getByName
@@ -76,6 +82,7 @@ function getNotFound(request, response) {
 
 module.exports = {
     getAll,
+    getAllTypes,
     getNotFound,
     getByName,
     getByType,
