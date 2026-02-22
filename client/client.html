@@ -36,6 +36,7 @@
         content.innerHTML += `<p>${JSON.stringify(responseObj.users)}</p>`
       }
       await updateTypes();
+      await updateSelectionLimit();
     }
 
     async function sendPost (form, body) {
@@ -199,6 +200,19 @@
         }
       }
     }
+
+    async function updateSelectionLimit() {
+      const response = await fetch('/getAll', {
+        method: "GET",
+        headers: {
+          "Accept": "/application/json"
+        }
+      });
+      const allMons = await response.json();
+
+      const dexNumLimit = document.querySelector('#number');
+      dexNumLimit.max = allMons.length;
+    } 
 
     function init() {
       updateTypes();

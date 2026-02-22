@@ -50,7 +50,6 @@ function createPokemon(request, response){
 //createType
 //make a custom type that has weaknesses and resistances and immunities
 //handleResponse will update the respective type fields on the page itself
-//we'll handle the name checkings later
 function createType(request, response){
     const {name, weaknesses, resistances, immunities} = request.body;
     const badReqMessage = {
@@ -60,8 +59,8 @@ function createType(request, response){
     //i want to check if it starts with a number, because the toUpper on the client will break if it starts with a number
     //that sounds like a job for regular expressions, but i am soooooo bad with regex
     //i'll try and understand this
-    //i didn't copy from it, but i figured i should credit https://regex101.com/r/UK0JzR/1 for helping me understand this
-    //and mdn as well
+    //i didn't copy from it, but i figured i should credit https://regex101.com/r/UK0JzR/1 for helping me understand regex
+    //and mdn as well of course
     if(!/^[A-Za-z]/.test(name[0])) {
         return r.respond(request, response, 400, badReqMessage, 'application/json')
     }
@@ -77,6 +76,7 @@ function createType(request, response){
     return r.respond(request, response, 201, newType, 'application/json')
 }
 
+//changeType will allow you to change the type of an existing pokemon (that you grab by id)
 // function changeType(request, response){
     
 // }
