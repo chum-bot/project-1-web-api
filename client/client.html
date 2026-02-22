@@ -35,6 +35,7 @@
       else {
         content.innerHTML += `<p>${JSON.stringify(responseObj.users)}</p>`
       }
+      await updateTypes();
     }
 
     async function sendPost (form, body) {
@@ -84,6 +85,9 @@
     }
 
     async function getAll(form){
+      await sendGet(form);
+    }
+    async function getAllTypes(form){
       await sendGet(form);
     }
 
