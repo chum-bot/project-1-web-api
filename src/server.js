@@ -15,7 +15,9 @@ const urlStruct = {
     '/getByDexNumber': getHandler.getByDexNumber,
     '/getByType': getHandler.getByType,
     '/createPokemon': postHandler.createPokemon,
-    '/changeType': postHandler.changeType
+    '/changeType': postHandler.changeType,
+    '/createType': postHandler.createType
+    
 }
 
 function parseBody(request, response, handler) {

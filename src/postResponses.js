@@ -41,10 +41,28 @@ function createPokemon(request, response){
     }
 
     if(imgLink) newPokemon.img = imgLink; //i should proooooobably add some validation here
-    if(type2) newPokemon.type.push(`${type2}`); //another if check after we make the mon
+    if(type2) newPokemon.type.push(`${type2}`);
 
     allPokemon.push(newPokemon);
     return r.respond(request, response, 201, newPokemon, 'application/json')
+}
+
+//createType
+//make a custom type that has weaknesses and resistances and immunities
+//handleResponse will update the respective type fields on the page itself
+//we'll handle the checkings later
+function createType(request, response){
+    const {name, weaknesses, resistances, immunities} = request.body;
+
+    let newType = {
+        name,
+        weaknesses,
+        resistances,
+        immunities
+    }
+
+    allTypes.push(newType);
+    return r.respond(request, response, 201, newType, 'application/json')
 }
 
 function changeType(request, response){
@@ -53,5 +71,6 @@ function changeType(request, response){
 
 module.exports = {
     createPokemon,
-    changeType
+    changeType,
+    createType
 }
