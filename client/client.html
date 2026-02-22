@@ -29,14 +29,19 @@
       }
 
       const responseObj = await response.json();
+      //updating types and selection limit
+      if(response.status === 201) {
+        //if the object has an id, it's a pokemon so update selection limit
+        //if it doesn't, it's a type so update the types
+        if(responseObj.id) updateSelectionLimit(); 
+        else updateTypes();
+      }
       if(responseObj.message) {
         content.innerHTML += `<p>${responseObj.message}</p>`
       }
       else {
         content.innerHTML += `<p>${JSON.stringify(responseObj.users)}</p>`
       }
-      await updateTypes();
-      await updateSelectionLimit();
     }
 
     async function sendPost (form, body) {
@@ -221,13 +226,12 @@
       updateTypes();
       formSetup("#getByNameForm", getByName);
       formSetup("#getAllForm", getAll);
+      formSetup('#getAllTypesForm', getAllTypes);
       formSetup("#getByTypeForm", getByType);
       formSetup("#getByNumberForm", getByDexNumber);
       formSetup("#createMonForm", createPokemon);
       formSetup("#createTypeForm", createType);
       formSetup("#changeTypeForm", changeType);
-      //i could do the same thing i did for the urls here and make an object that stores each of these
-      //that might be a little more elegant
     }
 
     window.onload = init;
@@ -240,6 +244,13 @@
       <h2 class="endpointHeader">Get All Pokemon</h2>
       <p>No parameters needed.</p>
       <form id="getAllForm" action="/getAll" method="get">
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get All Types</h2>
+      <p>No parameters needed.</p>
+      <form id="getAllTypesForm" action="/getAllTypes" method="get">
         <input type="submit" value="Submit"/>
       </form>
     </div>
