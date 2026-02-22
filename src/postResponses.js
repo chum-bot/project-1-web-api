@@ -93,8 +93,8 @@ function changeType(request, response){
         return r.respond(request, response, 400, badReqMessage, 'application/json')
     }
 
-    const nameMatch = allPokemon.find(mon => mon.name.toLowerCase() === name.toLowerCase());
-    if(!nameMatch) {
+    const foundMon = allPokemon.find(mon => mon.name.toLowerCase() === name.toLowerCase());
+    if(!foundMon) {
         return r.respond(request, response, 404, notFoundMessage, 'application/json')
     }
 
@@ -112,6 +112,9 @@ function changeType(request, response){
         }
     }
     
+    foundMon.type = [type1, type2]
+    console.log(allPokemon[foundMon.id - 1]);
+    return r.respond(request, response, 204, {}, 'application/json')
 
 }
 
