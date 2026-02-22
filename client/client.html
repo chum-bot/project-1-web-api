@@ -38,26 +38,36 @@
       }
     }
 
-    async function sendPost (nameForm) {
-      const url = nameForm.getAttribute('action');
-      const method = nameForm.getAttribute('method');
-
-      const name = nameForm.querySelector('#nameField').value;
-      const age = nameForm.querySelector('#ageField').value;
-
-      let formData = JSON.stringify({name, age});
+    async function sendPost (form, body) {
+      const url = form.getAttribute('action');
+      const method = form.getAttribute('method');
 
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'Content-Length': formData.length,
+          'Content-Length': body.length,
           'Accept': 'application/json'
         },
-        body: formData
+        body
       });
 
       handleResponse(response)
+    }
+
+    //createPokemon
+    //we're building the request body to send into sendPost
+    async function createPokemon(form) {
+      const name = form.querySelector('#postName').value;
+      const imageLink = form.querySelector('#postImgLink').value;
+      const type1 = form.querySelector('#postType1').value;
+      const type2 = form.querySelector('#postType2').value;
+      const height = form.querySelector('#postHeight').value;
+      const weight = form.querySelector('#postWeight').value;
+
+      const formData = JSON.stringify({name, imageLink, type1, type2, height, weight})
+
+      sendPost(form, formData)
     }
 
     async function sendGet(form, query = '') {
@@ -107,35 +117,21 @@
       await sendGet(form, query)
     }
 
+    function formSetup(formId, formFunction){
+      const form = document.querySelector(formId);
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        formFunction(form);
+        return false;
+      })
+    }
     function init() {
-      const nameForm = document.querySelector("#getByNameForm");
-      const allForm = document.querySelector("#getAllForm");
-      const typeForm = document.querySelector("#getByTypeForm");
-      const numberForm = document.querySelector('#getByNumberForm')
-
-      nameForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        getByName(nameForm);
-        return false;
-      })
-
-      allForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        getAll(allForm);
-        return false;
-      })
-
-      typeForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        getByType(typeForm);
-        return false;
-      })
-
-      numberForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        getByDexNumber(numberForm);
-        return false;
-      })
+      formSetup("#getByNameForm", getByName);
+      formSetup("#getAllForm", getAll);
+      formSetup("#getByTypeForm", getByType);
+      formSetup("#getByNumberForm", getByDexNumber);
+      formSetup("#createMonForm", createPokemon);
     }
 
     window.onload = init;
@@ -215,7 +211,7 @@
         <input type="text" name="name" id="postName">
         <br>
         <label for="postImgLink">Image Link</label>
-        <input type="text" name="link" id="postImg">
+        <input type="url" name="imgLink" id="postImgLink">
         <br>
         <label for="postType1">Type 1</label>
         <input type="text" name="type1" id="postType1">
@@ -224,10 +220,10 @@
         <input type="text" name="type2" id="postType2">
         <br>
         <label for="postHeight">Height (m)</label>
-        <input type="number" name="height" id="postHeight">
+        <input type="number" name="height" id="postHeight" step=".01">
         <br>
         <label for="postWeight">Weight (kg)</label>
-        <input type="number" name="weight" id="postWeight">
+        <input type="number" name="weight" id="postWeight" step=".01">
         <br>
         <input type="submit" value="Submit"/>
       </form>

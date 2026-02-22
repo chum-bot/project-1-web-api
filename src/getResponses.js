@@ -15,7 +15,6 @@ function getByName(request, response){
         id: "notFound"
     }
     const name = request.query.name;
-
     const foundMon = allPokemon.find(mon => mon.name.toLowerCase() === name.toLowerCase());
     if(foundMon) {
         return r.respond(request, response, 200, foundMon, 'application/json')
