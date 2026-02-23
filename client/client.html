@@ -39,9 +39,6 @@
       if(responseObj.message) {
         content.innerHTML += `<p>${responseObj.message}</p>`
       }
-      else {
-        content.innerHTML += `<p>${JSON.stringify(responseObj.users)}</p>`
-      }
     }
 
     async function sendPost (form, body) {

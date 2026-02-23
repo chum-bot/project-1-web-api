@@ -113,7 +113,6 @@ function changeType(request, response){
     }
     
     foundMon.type = [type1, type2]
-    console.log(allPokemon[foundMon.id - 1]);
     return r.respond(request, response, 204, {}, 'application/json')
 
 }
