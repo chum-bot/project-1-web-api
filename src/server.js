@@ -5,7 +5,10 @@ const postHandler = require('./postResponses.js')
 const htmlHandler = require('./htmlResponses.js')
 const query = require('querystring')
 
-const urlStruct = {
+//separated the structs for more organization
+//i could separate the html ones as well but they go through the same thing
+//and they're both gets so it's fine
+const urlGetStruct = {
     '/': htmlHandler.getIndex,
     index: htmlHandler.getIndex,  
     '/documentation': htmlHandler.getDocumentation,  
@@ -15,6 +18,8 @@ const urlStruct = {
     '/getByName': getHandler.getByName,
     '/getByDexNumber': getHandler.getByDexNumber,
     '/getByType': getHandler.getByType,
+}
+const urlPostStruct = {
     '/createPokemon': postHandler.createPokemon,
     '/changeType': postHandler.changeType,
     '/createType': postHandler.createType
@@ -60,23 +65,15 @@ function parseBody(request, response, handler) {
 //the same as the thing you use the struct for, to get each url and handle it
 //except post uses parseBody because it needs to
 function handleGet(request, response, parsedUrl) {
-    const handler = urlStruct[parsedUrl.pathname];
+    const handler = urlGetStruct[parsedUrl.pathname];
     if(handler) {
         return handler(request, response);
     }
     return getHandler.getNotFound(request, response);
 }
 
-//hm... with this implementation would it then be possible to run one of the get urls through this post
-//and actually have it work? i feel like it'd work 
-//because all you would need is to just send POST through that url
-//then it'd parse the one packet and send it back to the server
-//it wouldn't do anything with said packet but it would come through
-//a better implementation would be to make two handlers, one get and one post
-//just so you wouldn't be able to do that bc that's weird and messy
-//i'll do that for the project
 function handlePost(request, response, parsedUrl) {
-    const handler = urlStruct[parsedUrl.pathname];
+    const handler = urlPostStruct[parsedUrl.pathname];
     if(handler) {
         return parseBody(request, response, handler);
     }
