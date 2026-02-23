@@ -77,8 +77,9 @@
     }
 
     async function sendGet(form, query = '') {
+      const methodToggle = document.querySelector('#getHeadSwitch').value;
       let url = form.action;
-      const method = form.method;
+      const method = methodToggle;
       url += query;
 
       const response = await fetch(url, {
@@ -239,7 +240,14 @@
 </head>
 <body>
   <section id="top">
-    <h3>Pokedex Lookup Tool</h3>
+    <h1>Pokedex Lookup Tool</h1>
+    <div id="getHeadToggleBox">
+      <h3>GET/HEAD toggle for all GET endpoints</h3>
+      <select name="getHeadSwitch" id="getHeadSwitch">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+    </div>
     <div class="endpointBox">
       <h2 class="endpointHeader">Get All Pokemon</h2>
       <p>No parameters needed.</p>
@@ -261,6 +269,7 @@
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit Head"/>
       </form>
     </div>
     <div class="endpointBox">

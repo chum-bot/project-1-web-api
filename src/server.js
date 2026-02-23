@@ -18,7 +18,6 @@ const urlStruct = {
     '/createPokemon': postHandler.createPokemon,
     '/changeType': postHandler.changeType,
     '/createType': postHandler.createType
-    
 }
 
 function parseBody(request, response, handler) {
