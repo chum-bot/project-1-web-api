@@ -1623,12 +1623,14 @@
     ],
     "height": "1.40 m",
     "weight": "39.2 kg",
-    "next_evolution": [
-      {
-        "num": "085",
-        "name": "Dodrio"
-      }
-    ]
+    "stats": {
+      "hp": 35,
+      "atk": 85,
+      "def": 45,
+      "spAtk": 35,
+      "spDef": 35,
+      "speed": 75
+    }
   },
   {
     "id": 85,
@@ -1640,7 +1642,15 @@
       "Flying"
     ],
     "height": "1.80 m",
-    "weight": "85.2 kg"
+    "weight": "85.2 kg",
+    "stats": {
+      "hp": 60,
+      "atk": 110,
+      "def": 70,
+      "spAtk": 60,
+      "spDef": 60,
+      "speed": 110
+    }
   },
   {
     "id": 86,
@@ -1652,12 +1662,14 @@
     ],
     "height": "1.09 m",
     "weight": "90.0 kg",
-    "next_evolution": [
-      {
-        "num": "087",
-        "name": "Dewgong"
-      }
-    ]
+    "stats": {
+      "hp": 65,
+      "atk": 45,
+      "def": 55,
+      "spAtk": 45,
+      "spDef": 70,
+      "speed": 45
+    }
   },
   {
     "id": 87,
@@ -1669,7 +1681,15 @@
       "Ice"
     ],
     "height": "1.70 m",
-    "weight": "120.0 kg"
+    "weight": "120.0 kg",
+    "stats": {
+      "hp": 90,
+      "atk": 70,
+      "def": 80,
+      "spAtk": 70,
+      "spDef": 95,
+      "speed": 70
+    }
   },
   {
     "id": 88,
@@ -1681,12 +1701,14 @@
     ],
     "height": "0.89 m",
     "weight": "30.0 kg",
-    "next_evolution": [
-      {
-        "num": "089",
-        "name": "Muk"
-      }
-    ]
+    "stats": {
+      "hp": 80,
+      "atk": 80,
+      "def": 50,
+      "spAtk": 40,
+      "spDef": 50,
+      "speed": 25
+    }
   },
   {
     "id": 89,
@@ -1697,7 +1719,15 @@
       "Poison"
     ],
     "height": "1.19 m",
-    "weight": "30.0 kg"
+    "weight": "30.0 kg",
+    "stats": {
+      "hp": 105,
+      "atk": 105,
+      "def": 75,
+      "spAtk": 65,
+      "spDef": 100,
+      "speed": 50
+    }
   },
   {
     "id": 90,
@@ -1709,12 +1739,14 @@
     ],
     "height": "0.30 m",
     "weight": "4.0 kg",
-    "next_evolution": [
-      {
-        "num": "091",
-        "name": "Cloyster"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 65,
+      "def": 100,
+      "spAtk": 45,
+      "spDef": 25,
+      "speed": 40
+    }
   },
   {
     "id": 91,
@@ -1726,7 +1758,15 @@
       "Ice"
     ],
     "height": "1.50 m",
-    "weight": "132.5 kg"
+    "weight": "132.5 kg",
+    "stats": {
+      "hp": 50,
+      "atk": 95,
+      "def": 180,
+      "spAtk": 85,
+      "spDef": 45,
+      "speed": 70
+    }
   },
   {
     "id": 92,
@@ -1739,16 +1779,14 @@
     ],
     "height": "1.30 m",
     "weight": "0.1 kg",
-    "next_evolution": [
-      {
-        "num": "093",
-        "name": "Haunter"
-      },
-      {
-        "num": "094",
-        "name": "Gengar"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 35,
+      "def": 30,
+      "spAtk": 100,
+      "spDef": 35,
+      "speed": 80
+    }
   },
   {
     "id": 93,
@@ -1761,12 +1799,14 @@
     ],
     "height": "1.60 m",
     "weight": "0.1 kg",
-    "next_evolution": [
-      {
-        "num": "094",
-        "name": "Gengar"
-      }
-    ]
+    "stats": {
+      "hp": 45,
+      "atk": 50,
+      "def": 45,
+      "spAtk": 115,
+      "spDef": 55,
+      "speed": 95
+    }
   },
   {
     "id": 94,
@@ -1778,7 +1818,15 @@
       "Poison"
     ],
     "height": "1.50 m",
-    "weight": "40.5 kg"
+    "weight": "40.5 kg",
+    "stats": {
+      "hp": 60,
+      "atk": 65,
+      "def": 60,
+      "spAtk": 130,
+      "spDef": 75,
+      "speed": 110
+    }
   },
   {
     "id": 95,
@@ -1790,7 +1838,15 @@
       "Ground"
     ],
     "height": "8.79 m",
-    "weight": "210.0 kg"
+    "weight": "210.0 kg",
+    "stats": {
+      "hp": 35,
+      "atk": 45,
+      "def": 160,
+      "spAtk": 30,
+      "spDef": 45,
+      "speed": 70
+    }
   },
   {
     "id": 96,
@@ -1802,12 +1858,14 @@
     ],
     "height": "0.99 m",
     "weight": "32.4 kg",
-    "next_evolution": [
-      {
-        "num": "097",
-        "name": "Hypno"
-      }
-    ]
+    "stats": {
+      "hp": 60,
+      "atk": 48,
+      "def": 45,
+      "spAtk": 43,
+      "spDef": 90,
+      "speed": 42
+    }
   },
   {
     "id": 97,
@@ -1818,7 +1876,15 @@
       "Psychic"
     ],
     "height": "1.60 m",
-    "weight": "75.6 kg"
+    "weight": "75.6 kg",
+    "stats": {
+      "hp": 85,
+      "atk": 73,
+      "def": 70,
+      "spAtk": 73,
+      "spDef": 115,
+      "speed": 67
+    }
   },
   {
     "id": 98,
@@ -1830,12 +1896,14 @@
     ],
     "height": "0.41 m",
     "weight": "6.5 kg",
-    "next_evolution": [
-      {
-        "num": "099",
-        "name": "Kingler"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 105,
+      "def": 90,
+      "spAtk": 25,
+      "spDef": 25,
+      "speed": 50
+    }
   },
   {
     "id": 99,
@@ -1846,7 +1914,15 @@
       "Water"
     ],
     "height": "1.30 m",
-    "weight": "60.0 kg"
+    "weight": "60.0 kg",
+    "stats": {
+      "hp": 55,
+      "atk": 130,
+      "def": 115,
+      "spAtk": 50,
+      "spDef": 50,
+      "speed": 75
+    }
   },
   {
     "id": 100,
@@ -1858,12 +1934,14 @@
     ],
     "height": "0.51 m",
     "weight": "10.4 kg",
-    "next_evolution": [
-      {
-        "num": "101",
-        "name": "Electrode"
-      }
-    ]
+    "stats": {
+      "hp": 40,
+      "atk": 30,
+      "def": 50,
+      "spAtk": 55,
+      "spDef": 55,
+      "speed": 100
+    }
   },
   {
     "id": 101,
@@ -1874,7 +1952,15 @@
       "Electric"
     ],
     "height": "1.19 m",
-    "weight": "66.6 kg"
+    "weight": "66.6 kg",
+    "stats": {
+      "hp": 6,
+      "atk": 50,
+      "def": 70,
+      "spAtk": 80,
+      "spDef": 80,
+      "speed": 150
+    }
   },
   {
     "id": 102,
@@ -1887,12 +1973,14 @@
     ],
     "height": "0.41 m",
     "weight": "2.5 kg",
-    "next_evolution": [
-      {
-        "num": "103",
-        "name": "Exeggutor"
-      }
-    ]
+    "stats": {
+      "hp": 60,
+      "atk": 40,
+      "def": 80,
+      "spAtk": 60,
+      "spDef": 45,
+      "speed": 40
+    }
   },
   {
     "id": 103,
@@ -1904,7 +1992,15 @@
       "Psychic"
     ],
     "height": "2.01 m",
-    "weight": "120.0 kg"
+    "weight": "120.0 kg",
+    "stats": {
+      "hp": 95,
+      "atk": 95,
+      "def": 85,
+      "spAtk": 125,
+      "spDef": 75,
+      "speed": 55
+    }
   },
   {
     "id": 104,
@@ -1916,12 +2012,14 @@
     ],
     "height": "0.41 m",
     "weight": "6.5 kg",
-    "next_evolution": [
-      {
-        "num": "105",
-        "name": "Marowak"
-      }
-    ]
+    "stats": {
+      "hp": 50,
+      "atk": 50,
+      "def": 95,
+      "spAtk": 40,
+      "spDef": 50,
+      "speed": 35
+    }
   },
   {
     "id": 105,
@@ -1932,7 +2030,15 @@
       "Ground"
     ],
     "height": "0.99 m",
-    "weight": "45.0 kg"
+    "weight": "45.0 kg",
+    "stats": {
+      "hp": 60,
+      "atk": 80,
+      "def": 110,
+      "spAtk": 50,
+      "spDef": 80,
+      "speed": 45
+    }
   },
   {
     "id": 106,
@@ -1943,7 +2049,15 @@
       "Fighting"
     ],
     "height": "1.50 m",
-    "weight": "49.8 kg"
+    "weight": "49.8 kg",
+    "stats": {
+      "hp": 50,
+      "atk": 120,
+      "def": 53,
+      "spAtk": 35,
+      "spDef": 110,
+      "speed": 87
+    }
   },
   {
     "id": 107,
@@ -1954,7 +2068,15 @@
       "Fighting"
     ],
     "height": "1.40 m",
-    "weight": "50.2 kg"
+    "weight": "50.2 kg",
+    "stats": {
+      "hp": 50,
+      "atk": 105,
+      "def": 79,
+      "spAtk": 35,
+      "spDef": 110,
+      "speed": 76
+    }
   },
   {
     "id": 108,
@@ -1965,7 +2087,15 @@
       "Normal"
     ],
     "height": "1.19 m",
-    "weight": "65.5 kg"
+    "weight": "65.5 kg",
+    "stats": {
+      "hp": 90,
+      "atk": 55,
+      "def": 75,
+      "spAtk": 60,
+      "spDef": 75,
+      "speed": 30
+    }
   },
   {
     "id": 109,
@@ -1977,12 +2107,14 @@
     ],
     "height": "0.61 m",
     "weight": "1.0 kg",
-    "next_evolution": [
-      {
-        "num": "110",
-        "name": "Weezing"
-      }
-    ]
+    "stats": {
+      "hp": 40,
+      "atk": 65,
+      "def": 95,
+      "spAtk": 60,
+      "spDef": 45,
+      "speed": 35
+    }
   },
   {
     "id": 110,
@@ -1993,7 +2125,15 @@
       "Poison"
     ],
     "height": "1.19 m",
-    "weight": "9.5 kg"
+    "weight": "9.5 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 90,
+      "def": 120,
+      "spAtk": 85,
+      "spDef": 70,
+      "speed": 60
+    }
   },
   {
     "id": 111,
@@ -2006,12 +2146,14 @@
     ],
     "height": "0.99 m",
     "weight": "115.0 kg",
-    "next_evolution": [
-      {
-        "num": "112",
-        "name": "Rhydon"
-      }
-    ]
+    "stats": {
+      "hp": 80,
+      "atk": 85,
+      "def": 95,
+      "spAtk": 30,
+      "spDef": 30,
+      "speed": 25
+    }
   },
   {
     "id": 112,
@@ -2023,7 +2165,15 @@
       "Rock"
     ],
     "height": "1.91 m",
-    "weight": "120.0 kg"
+    "weight": "120.0 kg",
+    "stats": {
+      "hp": 105,
+      "atk": 130,
+      "def": 120,
+      "spAtk": 45,
+      "spDef": 45,
+      "speed": 40
+    }
   },
   {
     "id": 113,
@@ -2034,7 +2184,15 @@
       "Normal"
     ],
     "height": "1.09 m",
-    "weight": "34.6 kg"
+    "weight": "34.6 kg",
+    "stats": {
+      "hp": 250,
+      "atk": 5,
+      "def": 5,
+      "spAtk": 35,
+      "spDef": 105,
+      "speed": 50
+    }
   },
   {
     "id": 114,
@@ -2045,7 +2203,15 @@
       "Grass"
     ],
     "height": "0.99 m",
-    "weight": "35.0 kg"
+    "weight": "35.0 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 55,
+      "def": 115,
+      "spAtk": 100,
+      "spDef": 40,
+      "speed": 60
+    }
   },
   {
     "id": 115,
@@ -2056,7 +2222,15 @@
       "Normal"
     ],
     "height": "2.21 m",
-    "weight": "80.0 kg"
+    "weight": "80.0 kg",
+    "stats": {
+      "hp": 105,
+      "atk": 95,
+      "def": 80,
+      "spAtk": 40,
+      "spDef": 80,
+      "speed": 90
+    }
   },
   {
     "id": 116,
@@ -2068,12 +2242,14 @@
     ],
     "height": "0.41 m",
     "weight": "8.0 kg",
-    "next_evolution": [
-      {
-        "num": "117",
-        "name": "Seadra"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 40,
+      "def": 70,
+      "spAtk": 70,
+      "spDef": 25,
+      "speed": 60
+    }
   },
   {
     "id": 117,
@@ -2084,7 +2260,15 @@
       "Water"
     ],
     "height": "1.19 m",
-    "weight": "25.0 kg"
+    "weight": "25.0 kg",
+    "stats": {
+      "hp": 55,
+      "atk": 65,
+      "def": 95,
+      "spAtk": 95,
+      "spDef": 45,
+      "speed": 85
+    }
   },
   {
     "id": 118,
@@ -2096,12 +2280,14 @@
     ],
     "height": "0.61 m",
     "weight": "15.0 kg",
-    "next_evolution": [
-      {
-        "num": "119",
-        "name": "Seaking"
-      }
-    ]
+    "stats": {
+      "hp": 45,
+      "atk": 67,
+      "def": 60,
+      "spAtk": 35,
+      "spDef": 50,
+      "speed": 63
+    }
   },
   {
     "id": 119,
@@ -2112,7 +2298,15 @@
       "Water"
     ],
     "height": "1.30 m",
-    "weight": "39.0 kg"
+    "weight": "39.0 kg",
+    "stats": {
+      "hp": 80,
+      "atk": 92,
+      "def": 65,
+      "spAtk": 65,
+      "spDef": 80,
+      "speed": 68
+    }
   },
   {
     "id": 120,
@@ -2124,12 +2318,14 @@
     ],
     "height": "0.79 m",
     "weight": "34.5 kg",
-    "next_evolution": [
-      {
-        "num": "121",
-        "name": "Starmie"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 45,
+      "def": 55,
+      "spAtk": 70,
+      "spDef": 55,
+      "speed": 85
+    }
   },
   {
     "id": 121,
@@ -2141,7 +2337,15 @@
       "Psychic"
     ],
     "height": "1.09 m",
-    "weight": "80.0 kg"
+    "weight": "80.0 kg",
+    "stats": {
+      "hp": 60,
+      "atk": 75,
+      "def": 85,
+      "spAtk": 100,
+      "spDef": 85,
+      "speed": 115
+    }
   },
   {
     "id": 122,
@@ -2152,7 +2356,15 @@
       "Psychic"
     ],
     "height": "1.30 m",
-    "weight": "54.5 kg"
+    "weight": "54.5 kg",
+    "stats": {
+      "hp": 40,
+      "atk": 45,
+      "def": 65,
+      "spAtk": 100,
+      "spDef": 120,
+      "speed": 90
+    }
   },
   {
     "id": 123,
