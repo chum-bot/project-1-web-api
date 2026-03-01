@@ -2376,7 +2376,15 @@
       "Flying"
     ],
     "height": "1.50 m",
-    "weight": "56.0 kg"
+    "weight": "56.0 kg",
+    "stats": {
+      "hp": 70,
+      "atk": 110,
+      "def": 80,
+      "spAtk": 55,
+      "spDef": 80,
+      "speed": 105
+    }
   },
   {
     "id": 124,
@@ -2388,7 +2396,15 @@
       "Psychic"
     ],
     "height": "1.40 m",
-    "weight": "40.6 kg"
+    "weight": "40.6 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 50,
+      "def": 35,
+      "spAtk": 115,
+      "spDef": 95,
+      "speed": 95
+    }
   },
   {
     "id": 125,
@@ -2399,7 +2415,15 @@
       "Electric"
     ],
     "height": "1.09 m",
-    "weight": "30.0 kg"
+    "weight": "30.0 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 83,
+      "def": 57,
+      "spAtk": 100,
+      "spDef": 85,
+      "speed": 105
+    }
   },
   {
     "id": 126,
@@ -2410,7 +2434,15 @@
       "Fire"
     ],
     "height": "1.30 m",
-    "weight": "44.5 kg"
+    "weight": "44.5 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 95,
+      "def": 57,
+      "spAtk": 100,
+      "spDef": 85,
+      "speed": 93
+    }
   },
   {
     "id": 127,
@@ -2421,7 +2453,15 @@
       "Bug"
     ],
     "height": "1.50 m",
-    "weight": "55.0 kg"
+    "weight": "55.0 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 125,
+      "def": 100,
+      "spAtk": 55,
+      "spDef": 70,
+      "speed": 85
+    }
   },
   {
     "id": 128,
@@ -2432,7 +2472,15 @@
       "Normal"
     ],
     "height": "1.40 m",
-    "weight": "88.4 kg"
+    "weight": "88.4 kg",
+    "stats": {
+      "hp": 75,
+      "atk": 100,
+      "def": 95,
+      "spAtk": 40,
+      "spDef": 70,
+      "speed": 110
+    }
   },
   {
     "id": 129,
@@ -2444,12 +2492,14 @@
     ],
     "height": "0.89 m",
     "weight": "10.0 kg",
-    "next_evolution": [
-      {
-        "num": "130",
-        "name": "Gyarados"
-      }
-    ]
+    "stats": {
+      "hp": 20,
+      "atk": 10,
+      "def": 55,
+      "spAtk": 15,
+      "spDef": 20,
+      "speed": 80
+    }
   },
   {
     "id": 130,
@@ -2461,7 +2511,15 @@
       "Flying"
     ],
     "height": "6.50 m",
-    "weight": "235.0 kg"
+    "weight": "235.0 kg",
+    "stats": {
+      "hp": 95,
+      "atk": 125,
+      "def": 79,
+      "spAtk": 60,
+      "spDef": 100,
+      "speed": 81
+    }
   },
   {
     "id": 131,
@@ -2473,7 +2531,15 @@
       "Ice"
     ],
     "height": "2.49 m",
-    "weight": "220.0 kg"
+    "weight": "220.0 kg",
+    "stats": {
+      "hp": 130,
+      "atk": 85,
+      "def": 80,
+      "spAtk": 85,
+      "spDef": 95,
+      "speed": 60
+    }
   },
   {
     "id": 132,
@@ -2484,7 +2550,15 @@
       "Normal"
     ],
     "height": "0.30 m",
-    "weight": "4.0 kg"
+    "weight": "4.0 kg",
+    "stats": {
+      "hp": 48,
+      "atk": 48,
+      "def": 48,
+      "spAtk": 48,
+      "spDef": 48,
+      "speed": 48
+    }
   },
   {
     "id": 133,
@@ -2496,20 +2570,14 @@
     ],
     "height": "0.30 m",
     "weight": "6.5 kg",
-    "next_evolution": [
-      {
-        "num": "134",
-        "name": "Vaporeon"
-      },
-      {
-        "num": "135",
-        "name": "Jolteon"
-      },
-      {
-        "num": "136",
-        "name": "Flareon"
-      }
-    ]
+    "stats": {
+      "hp": 55,
+      "atk": 55,
+      "def": 50,
+      "spAtk": 45,
+      "spDef": 65,
+      "speed": 55
+    }
   },
   {
     "id": 134,
@@ -2520,7 +2588,15 @@
       "Water"
     ],
     "height": "0.99 m",
-    "weight": "29.0 kg"
+    "weight": "29.0 kg",
+    "stats": {
+      "hp": 130,
+      "atk": 65,
+      "def": 60,
+      "spAtk": 110,
+      "spDef": 95,
+      "speed": 65
+    }
   },
   {
     "id": 135,
@@ -2531,7 +2607,15 @@
       "Electric"
     ],
     "height": "0.79 m",
-    "weight": "24.5 kg"
+    "weight": "24.5 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 65,
+      "def": 60,
+      "spAtk": 110,
+      "spDef": 95,
+      "speed": 130
+    }
   },
   {
     "id": 136,
@@ -2542,7 +2626,15 @@
       "Fire"
     ],
     "height": "0.89 m",
-    "weight": "25.0 kg"
+    "weight": "25.0 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 130,
+      "def": 60,
+      "spAtk": 95,
+      "spDef": 110,
+      "speed": 65
+    }
   },
   {
     "id": 137,
@@ -2553,7 +2645,15 @@
       "Normal"
     ],
     "height": "0.79 m",
-    "weight": "36.5 kg"
+    "weight": "36.5 kg",
+    "stats": {
+      "hp": 65,
+      "atk": 60,
+      "def": 70,
+      "spAtk": 85,
+      "spDef": 75,
+      "speed": 40
+    }
   },
   {
     "id": 138,
@@ -2566,12 +2666,14 @@
     ],
     "height": "0.41 m",
     "weight": "7.5 kg",
-    "next_evolution": [
-      {
-        "num": "139",
-        "name": "Omastar"
-      }
-    ]
+    "stats": {
+      "hp": 35,
+      "atk": 40,
+      "def": 100,
+      "spAtk": 90,
+      "spDef": 55,
+      "speed": 35
+    }
   },
   {
     "id": 139,
@@ -2583,7 +2685,15 @@
       "Water"
     ],
     "height": "0.99 m",
-    "weight": "35.0 kg"
+    "weight": "35.0 kg",
+    "stats": {
+      "hp": 70,
+      "atk": 60,
+      "def": 125,
+      "spAtk": 115,
+      "spDef": 70,
+      "speed": 55
+    }
   },
   {
     "id": 140,
@@ -2596,12 +2706,14 @@
     ],
     "height": "0.51 m",
     "weight": "11.5 kg",
-    "next_evolution": [
-      {
-        "num": "141",
-        "name": "Kabutops"
-      }
-    ]
+    "stats": {
+      "hp": 30,
+      "atk": 80,
+      "def": 90,
+      "spAtk": 55,
+      "spDef": 45,
+      "speed": 55
+    }
   },
   {
     "id": 141,
@@ -2613,7 +2725,15 @@
       "Water"
     ],
     "height": "1.30 m",
-    "weight": "40.5 kg"
+    "weight": "40.5 kg",
+    "stats": {
+      "hp": 60,
+      "atk": 115,
+      "def": 105,
+      "spAtk": 65,
+      "spDef": 70,
+      "speed": 80
+    }
   },
   {
     "id": 142,
@@ -2625,7 +2745,15 @@
       "Flying"
     ],
     "height": "1.80 m",
-    "weight": "59.0 kg"
+    "weight": "59.0 kg",
+    "stats": {
+      "hp": 80,
+      "atk": 105,
+      "def": 65,
+      "spAtk": 60,
+      "spDef": 75,
+      "speed": 130
+    }
   },
   {
     "id": 143,
@@ -2636,7 +2764,15 @@
       "Normal"
     ],
     "height": "2.11 m",
-    "weight": "460.0 kg"
+    "weight": "460.0 kg",
+    "stats": {
+      "hp": 160,
+      "atk": 110,
+      "def": 65,
+      "spAtk": 65,
+      "spDef": 110,
+      "speed": 30
+    }
   },
   {
     "id": 144,
@@ -2648,7 +2784,15 @@
       "Flying"
     ],
     "height": "1.70 m",
-    "weight": "55.4 kg"
+    "weight": "55.4 kg",
+    "stats": {
+      "hp": 90,
+      "atk": 85,
+      "def": 85,
+      "spAtk": 125,
+      "spDef": 100,
+      "speed": 95
+    }
   },
   {
     "id": 145,
@@ -2660,7 +2804,15 @@
       "Flying"
     ],
     "height": "1.60 m",
-    "weight": "52.6 kg"
+    "weight": "52.6 kg",
+    "stats": {
+      "hp": 90,
+      "atk": 90,
+      "def": 85,
+      "spAtk": 125,
+      "spDef": 90,
+      "speed": 100
+    }
   },
   {
     "id": 146,
@@ -2672,7 +2824,15 @@
       "Flying"
     ],
     "height": "2.01 m",
-    "weight": "60.0 kg"
+    "weight": "60.0 kg",
+    "stats": {
+      "hp": 90,
+      "atk": 100,
+      "def": 90,
+      "spAtk": 125,
+      "spDef": 85,
+      "speed": 90
+    }
   },
   {
     "id": 147,
@@ -2684,16 +2844,14 @@
     ],
     "height": "1.80 m",
     "weight": "3.3 kg",
-    "next_evolution": [
-      {
-        "num": "148",
-        "name": "Dragonair"
-      },
-      {
-        "num": "149",
-        "name": "Dragonite"
-      }
-    ]
+    "stats": {
+      "hp": 41,
+      "atk": 64,
+      "def": 45,
+      "spAtk": 50,
+      "spDef": 50,
+      "speed": 50
+    }
   },
   {
     "id": 148,
@@ -2705,12 +2863,14 @@
     ],
     "height": "3.99 m",
     "weight": "16.5 kg",
-    "next_evolution": [
-      {
-        "num": "149",
-        "name": "Dragonite"
-      }
-    ]
+    "stats": {
+      "hp": 61,
+      "atk": 84,
+      "def": 65,
+      "spAtk": 70,
+      "spDef": 70,
+      "speed": 70
+    }
   },
   {
     "id": 149,
@@ -2722,7 +2882,15 @@
       "Flying"
     ],
     "height": "2.21 m",
-    "weight": "210.0 kg"
+    "weight": "210.0 kg",
+    "stats": {
+      "hp": 91,
+      "atk": 134,
+      "def": 95,
+      "spAtk": 100,
+      "spDef": 100,
+      "speed": 80
+    }
   },
   {
     "id": 150,
@@ -2733,7 +2901,15 @@
       "Psychic"
     ],
     "height": "2.01 m",
-    "weight": "122.0 kg"
+    "weight": "122.0 kg",
+    "stats": {
+      "hp": 106,
+      "atk": 110,
+      "def": 90,
+      "spAtk": 154,
+      "spDef": 90,
+      "speed": 130
+    }
   },
   {
     "id": 151,
@@ -2744,6 +2920,14 @@
       "Psychic"
     ],
     "height": "0.41 m",
-    "weight": "4.0 kg"
+    "weight": "4.0 kg",
+    "stats": {
+      "hp": 100,
+      "atk": 100,
+      "def": 100,
+      "spAtk": 100,
+      "spDef": 100,
+      "speed": 100
+    }
   }
 ]
