@@ -94,7 +94,6 @@
       pokeBox.classList.add("pokeBox"); 
       hoverBox.classList.add("hoverBox"); //and then we'll make it look better with the stylesheet
 
-      console.log(pokemon);
       pokeBox.innerHTML = `
       <img src="${pokemon.img}">
       <p class="pokeNum">#${pokemon.num}</p>
@@ -378,6 +377,7 @@
 <body>
   <section id="top">
     <h1>Pokedex Lookup Tool</h1>
+    <a href="/documentation">Documentation</a>
     <div id="getHeadToggleBox">
       <h3>GET/HEAD toggle for all GET endpoints</h3>
       <select name="getHeadSwitch" id="getHeadSwitch">
@@ -385,17 +385,14 @@
         <option value="head">HEAD</option>
       </select>
     </div>
-    <a href="/documentation">Documentation</a>
     <div class="endpointBox">
       <h2 class="endpointHeader">Get All Pokemon</h2>
-      <p>No parameters needed.</p>
       <form id="getAllForm" action="/getAll" method="get">
         <input type="submit" value="Submit"/>
       </form>
     </div>
     <div class="endpointBox">
       <h2 class="endpointHeader">Get All Types</h2>
-      <p>No parameters needed.</p>
       <form id="getAllTypesForm" action="/getAllTypes" method="get">
         <input type="submit" value="Submit"/>
       </form>

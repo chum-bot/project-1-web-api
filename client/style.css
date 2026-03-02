@@ -60,6 +60,10 @@ html, body {
   max-width: 150px;
 }
 
+.docBox {
+  text-align: left;
+}
+
 .typeBox {
   background-color: aquamarine;
   border: 2px solid goldenrod;
