@@ -48,8 +48,7 @@ function createPokemon(request, response){
         }
     }
 
-    if(imgLink) newPokemon.img = imgLink; //i should proooooobably add some validation here
-    console.log(imgLink);
+    if(imgLink) newPokemon.img = imgLink;
     if(type2) newPokemon.type.push(`${type2}`);
 
     allPokemon.push(newPokemon);
@@ -72,6 +71,11 @@ function createType(request, response){
     //and mdn as well of course
     if(!/^[A-Za-z]/.test(name)) {
         return r.respond(request, response, 400, badReqMessage, 'application/json')
+    }
+    for(const type of [weaknesses, resistances, immunities]){
+        if(type.includes('itself')){
+            type[type.indexOf('itself')] = name;
+        }
     }
 
     let newType = {

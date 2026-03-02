@@ -315,21 +315,6 @@
       const typeHolders = [weak, res, immune, get]
       typeHolders.forEach(h => h.innerHTML = '');
 
-
-      //i will add the extra box for resisting yourself
-        // const typeOption = document.createElement('input');
-        // typeOption.type = 'checkbox';
-        // typeOption.name = 'type';
-        // typeOption.value = t.name;
-        // typeOption.id = t.name;
-
-        // const label = document.createElement('label');
-        // label.innerText = capitalize(t.name);
-        // label.for = t.name;
-
-        // h.appendChild(typeOption);
-        // h.appendChild(label);
-
       for(const t of allTypes){
         for(const h of typeHolders){
         const typeOption = document.createElement('input');
@@ -345,6 +330,20 @@
         h.appendChild(typeOption);
         h.appendChild(label);
         }
+      }
+      for (const h of [weak, res, immune]){
+        const self = document.createElement('input');
+        self.type = 'checkbox';
+        self.name = 'type';
+        self.value = 'itself';
+        self.id = 'itself';
+
+        const selfLab = document.createElement('label');
+        selfLab.innerText = capitalize('itself');
+        selfLab.for = 'itself';
+
+        h.appendChild(self);
+        h.appendChild(selfLab);
       }
     }
 
@@ -386,6 +385,7 @@
         <option value="head">HEAD</option>
       </select>
     </div>
+    <a href="/documentation">Documentation</a>
     <div class="endpointBox">
       <h2 class="endpointHeader">Get All Pokemon</h2>
       <p>No parameters needed.</p>

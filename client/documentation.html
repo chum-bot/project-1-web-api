@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pokedex Lookup Tool Documentation</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  
+  <script>
+    async function handleResponse(response) {
+      const content = document.querySelector('#content');
+      const message = document.querySelector('#message');
+
+      content.innerHTML = '';
+
+      switch(response.status) {
+        case 200:
+          message.innerHTML = '<b>Success</b>'
+          break;
+        case 201:
+          message.innerHTML = '<b>Created</b>'
+          break;
+        case 204:
+          message.innerHTML = '<b>Updated (No Content)</b>'
+          break;
+        case 400:
+          message.innerHTML = '<b>Bad Request</b>'
+          break;
+        case 404:
+          message.innerHTML = '<b>Not Found</b>'
+          break;
+        default: 
+          message.innerHTML = '<b>Status code not implemented by client</b>'
+      }
+
+      //ALRIGHT ALRIGHT ALRIGHT
+      //response handling time now that we have all the endpoints functioning
+      //our returns will go into the content box, as shown above
+      //we want to turn a pokemon into a box that has all its stuff in it,
+      //and we want to turn types into boxes with all their weakness resistances and immunities
+      //ideally put into a list
+
+      const responseObj = await response.json();
+      //updating types and selection limit
+      if(response.status === 201) {
+        //if the object has an id, it's a pokemon so update selection limit
+        //if it doesn't, it's a type so update the types
+        if(responseObj.id) updateSelectionLimit(); 
+        else updateTypes();
+      }
+      if(responseObj.message) {
+        message.innerHTML += `<p>${responseObj.message}</p>`
+      }
+
+      //checking ithe different types of responses there can be
+      if(Array.isArray(responseObj)) {
+        if(responseObj[0].num) {
+          for(const pokemon of responseObj){
+            content.appendChild(pokemonVisual(pokemon));
+          }
+        }
+        else if(responseObj[0].weaknesses) {
+          for(const type of responseObj){
+            content.appendChild(typeVisual(type));
+          }
+        }
+      }
+      else {
+        if(responseObj.num) content.appendChild(pokemonVisual(responseObj));
+        else if (responseObj.weaknesses) content.appendChild(typeVisual(responseObj));
+      }
+    }
+
+    async function sendPost (form, body) {
+      const url = form.getAttribute('action');
+      const method = form.getAttribute('method');
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': body.length,
+          'Accept': 'application/json'
+        },
+        body
+      });
+
+      handleResponse(response)
+    }
+
+    //pokemonVisual
+    //Creates a visual box with the information on a Pokemon as it appears in the returned table
+    function pokemonVisual(pokemon){
+      const pokeBox = document.createElement("div");
+      const hoverBox = document.createElement("div")
+      pokeBox.classList.add("pokeBox"); 
+      hoverBox.classList.add("hoverBox"); //and then we'll make it look better with the stylesheet
+
+      console.log(pokemon);
+      pokeBox.innerHTML = `
+      <img src="${pokemon.img}">
+      <p class="pokeNum">#${pokemon.num}</p>
+      <p class="pokeName">${pokemon.name}</p>
+      `;
+
+
+      let type = `${capitalize(pokemon.type[0])}`;
+      if(pokemon.type[1]) {
+        type += `/${capitalize(pokemon.type[1])}`
+      }
+      hoverBox.innerHTML = `
+      <h3 class="pokeType">${type}</h3>
+      <p class="pokeHeight">Height: ${pokemon.height}</p>
+      <p class="pokeWeight">Weight: ${pokemon.weight}</p>
+      <div class="statBox">
+        <p>HP:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.hp / 255)}px;background-color:red;">${pokemon.stats.hp}</div>
+        <p>Attack:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.atk / 255)}px;background-color:orange;">${pokemon.stats.atk}</div>
+        <p>Defense:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.def / 255)}px;background-color:yellow;">${pokemon.stats.def}</div>
+        <p>Sp. Atk:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.spAtk / 255)}px;background-color:greenyellow;">${pokemon.stats.spAtk}</div>
+        <p>Sp. Def:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.spDef / 255)}px;background-color:skyblue;"">${pokemon.stats.spDef}</div>
+        <p>Speed:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.speed / 255)}px;background-color:rebeccapurple;">${pokemon.stats.speed}</div>
+      </div>
+      `
+      pokeBox.appendChild(hoverBox);
+
+      return pokeBox;
+    }
+
+    function typeVisual(type){
+      const typeBox = document.createElement('div');
+      typeBox.classList.add('typeBox');
+
+      let weaknesses, resistances, immunities;
+
+      for(const t of type.weaknesses){
+        if(weaknesses === undefined) weaknesses = '';
+        weaknesses += `<p>${capitalize(t)}</p>`
+      }
+      for(const t of type.resistances){
+        if(resistances === undefined) resistances = '';
+        resistances += `<p>${capitalize(t)}</p>`
+      }
+      for(const t of type.immunities){
+        if(immunities === undefined) immunities = '';
+        immunities += `<p>${capitalize(t)}</p>`
+      }
+      
+      if(weaknesses === undefined) weaknesses = "None";
+      if(resistances === undefined) resistances = "None";
+      if(immunities === undefined) immunities = "None";
+
+      typeBox.innerHTML = `
+      <h2>${capitalize(type.name)}</h2>
+      <div class="typeRelations">
+        <div>
+        <h3>Weaknesses</h3>
+        ${weaknesses}
+        </div>
+        <div>
+        <h3>Resistances</h3>
+        ${resistances}
+        </div>
+        <div>
+        <h3>Immunities</h3>
+        ${immunities}
+        </div>
+      </div>
+      `
+
+      return typeBox;
+    }
+
+    //createPokemon
+    //we're building the request body to send into sendPost
+    async function createPokemon(form) {
+      const name = form.querySelector('#postName').value;
+      const imgLink = form.querySelector('#postImgLink').value;
+      const type1 = form.querySelector('#postType1').value;
+      const type2 = form.querySelector('#postType2').value;
+      const height = form.querySelector('#postHeight').value;
+      const weight = form.querySelector('#postWeight').value;
+      const hp = form.querySelector('#hp').value;
+      const atk = form.querySelector('#atk').value;
+      const def = form.querySelector('#def').value;
+      const spAtk = form.querySelector('#spAtk').value;
+      const spDef = form.querySelector('#spDef').value;
+      const speed = form.querySelector('#speed').value;
+
+      const formData = JSON.stringify({name, imgLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed})
+
+      sendPost(form, formData)
+    }
+
+    async function sendGet(form, query = '') {
+      const methodToggle = document.querySelector('#getHeadSwitch').value;
+      let url = form.action;
+      const method = methodToggle;
+      url += query;
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      handleResponse(response)
+    }
+
+    async function getAll(form){
+      await sendGet(form);
+    }
+    async function getAllTypes(form){
+      await sendGet(form);
+    }
+
+    async function getByName(form) {
+      const name = form.querySelector('#name').value;
+      let query = `?name=${name}`
+
+      await sendGet(form, query)
+    }
+
+    async function getByType(form) {
+      //so what we want to do is
+      //take out all the types we selected, and build the query with them
+      const allSelectedTypes = form.querySelectorAll('input[name=type]:checked')
+
+      let query = "?types=" //the beginning of every query
+      allSelectedTypes.forEach(type => {
+        console.log(type)
+        query += `${type.value},`;
+        //comma separated list in a query... 
+        //only doing this bc gets can't have a request body and i want to be able to select multiple types at once
+        //this specific implementation leaves a blank item at the end once i split it but it's fine
+      })
+
+      await sendGet(form, query);
+    }
+
+    async function getByDexNumber(form) {
+      const num = form.querySelector('#number').value;
+      let query = `?dexNumber=${num}`
+
+      await sendGet(form, query)
+    }
+
+    function formSetup(formId, formFunction){
+      const form = document.querySelector(formId);
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        formFunction(form);
+        return false;
+      })
+    }
+
+    async function createType(form) {
+      const name = form.querySelector('#typeName').value;
+      const weak = form.querySelector('#typeWeak');
+      const res = form.querySelector('#typeRes');
+      const immune = form.querySelector('#typeImmune');
+
+      //create an array from the collection, and only get the values from em
+      const weaknesses = Array.from(weak.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const resistances = Array.from(res.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+      const immunities = Array.from(immune.querySelectorAll('input[name=type]:checked')).map(t => t.value);
+
+      const formData = JSON.stringify({name, weaknesses, resistances, immunities})
+
+      await sendPost(form, formData);
+    }
+
+    async function changeType(form) {
+      const name = form.querySelector('#typeName').value;
+      const type1 = form.querySelector('#type1').value;
+      const type2 = form.querySelector('#type2').value;
+
+      const formData = JSON.stringify({name, type1, type2});
+
+      await sendPost(form, formData)
+    }
+
+    function capitalize(word) {
+      return word[0].toUpperCase() + word.substring(1);
+    }
+
+    //using this to update the type displays as the types array is updated via createType
+    //handleResponse as well as init will use this to populate the form elements when types are updated
+    async function updateTypes() {
+
+      //we get the types response
+      const response = await fetch('/getAllTypes', {
+        method: "GET",
+        headers: {
+          "Accept": "/application/json"
+        }
+      });
+      const allTypes = await response.json();
+      
+      //we get the forms themselves
+      const createTypeForm = document.querySelector('#createTypeForm');
+      const getTypeForm = document.querySelector('#getByTypeForm');
+
+      //and the elements within them that hold the type options
+      const weak = createTypeForm.querySelector('#typeWeak');
+      const res = createTypeForm.querySelector('#typeRes');
+      const immune = createTypeForm.querySelector('#typeImmune');
+      const get = getTypeForm.querySelector('#getByType');
+
+      //put em in an array, clear them (so it doesn't override anything)
+      const typeHolders = [weak, res, immune, get]
+      typeHolders.forEach(h => h.innerHTML = '');
+
+
+      //i will add the extra box for resisting yourself
+        // const typeOption = document.createElement('input');
+        // typeOption.type = 'checkbox';
+        // typeOption.name = 'type';
+        // typeOption.value = t.name;
+        // typeOption.id = t.name;
+
+        // const label = document.createElement('label');
+        // label.innerText = capitalize(t.name);
+        // label.for = t.name;
+
+        // h.appendChild(typeOption);
+        // h.appendChild(label);
+
+      for(const t of allTypes){
+        for(const h of typeHolders){
+        const typeOption = document.createElement('input');
+        typeOption.type = 'checkbox';
+        typeOption.name = 'type';
+        typeOption.value = t.name;
+        typeOption.id = t.name;
+
+        const label = document.createElement('label');
+        label.innerText = capitalize(t.name);
+        label.for = t.name;
+
+        h.appendChild(typeOption);
+        h.appendChild(label);
+        }
+      }
+    }
+
+    async function updateSelectionLimit() {
+      const response = await fetch('/getAll', {
+        method: "GET",
+        headers: {
+          "Accept": "/application/json"
+        }
+      });
+      const allMons = await response.json();
+
+      const dexNumLimit = document.querySelector('#number');
+      dexNumLimit.max = allMons.length;
+    } 
+
+    function init() {
+      updateTypes();
+      formSetup("#getByNameForm", getByName);
+      formSetup("#getAllForm", getAll);
+      formSetup('#getAllTypesForm', getAllTypes);
+      formSetup("#getByTypeForm", getByType);
+      formSetup("#getByNumberForm", getByDexNumber);
+      formSetup("#createMonForm", createPokemon);
+      formSetup("#createTypeForm", createType);
+      formSetup("#changeTypeForm", changeType);
+    }
+
+    window.onload = init;
+  </script>
+</head>
+<body>
+  <section id="top">
+    <h1>Pokedex Lookup Tool Documentation</h1>
+    <div id="getHeadToggleBox">
+      <h3>GET/HEAD toggle for all GET endpoints</h3>
+      <select name="getHeadSwitch" id="getHeadSwitch">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get All Pokemon (/getAll)</h2>
+      <p>Retrieves every Pokemon in the database.</p>
+      <p>No parameters needed.</p>
+      <form id="getAllForm" action="/getAll" method="get">
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get All Types (/getAllTypes)</h2>
+      <p>Retrieves every type in the database.</p>
+      <p>No parameters needed.</p>
+      <form id="getAllTypesForm" action="/getAllTypes" method="get">
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Name</h2>
+      <form id="getByNameForm" action="/getByName" method="get">
+        <label for="getName">Name</label>
+        <input type="text" name="name" id="name">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Type</h2>
+      <form id="getByTypeForm" action="/getByType" method="get">
+        <div id="getByType">
+
+        </div>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Get Pokemon By Pokedex Number</h2>
+      <form id="getByNumberForm" action="/getByDexNumber" method="get">
+        <label for="getNumber">Pokedex Number</label>
+        <input type="number" name="number" id="number" min="1" max="151">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Create Pokemon</h2>
+      <form id="createMonForm" action="/createPokemon" method="post">
+        <label for="postName">Name</label>
+        <input type="text" name="name" id="postName">
+        <br>
+        <label for="postImgLink">Image Link</label>
+        <input type="url" name="imgLink" id="postImgLink">
+        <br>
+        <label for="postType1">Type 1</label>
+        <input type="text" name="type1" id="postType1">
+        <br>
+        <label for="postType2">Type 2</label>
+        <input type="text" name="type2" id="postType2">
+        <br>
+        <label for="postHeight">Height (m)</label>
+        <input type="number" name="height" id="postHeight" step=".01">
+        <br>
+        <label for="postWeight">Weight (kg)</label>
+        <input type="number" name="weight" id="postWeight" step=".01">
+        <br>
+        <label for="hp">HP</label>
+        <input type="number" name="hp" id="hp" min="1" max="255">
+        <br>
+        <label for="atk">Attack</label>
+        <input type="number" name="atk" id="atk" min="1" max="255">
+        <br>
+        <label for="def">Defense</label>
+        <input type="number" name="def" id="def" min="1" max="255">
+        <br>
+        <label for="spAtk">Sp. Atk</label>
+        <input type="number" name="spAtk" id="spAtk" min="1" max="255">
+        <br>
+        <label for="spDef">Sp. Def</label>
+        <input type="number" name="spDef" id="spDef" min="1" max="255">
+        <br>
+        <label for="speed">Speed</label>
+        <input type="number" name="speed" id="speed" min="1" max="255">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Create Type</h2>
+      <form id="createTypeForm" action="/createType" method="post">
+        <label for="typeName">Name</label>
+        <input type="text" name="name" id="typeName">
+        <br>
+        <label for="typeWeak">Weaknesses</label>
+        <br>
+       <div id="typeWeak"></div>
+        <br>
+        <label for="typeRes">Resistances</label>
+        <br>
+       <div id="typeRes"></div>
+        <br>
+        <label for="typeImmune">Immunities</label>
+        <br>
+       <div id="typeImmune"></div>
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="endpointBox">
+      <h2 class="endpointHeader">Edit a Pokemon's Type</h2>
+      <form id="changeTypeForm" action="/changeType" method="post">
+        <label for="typeName">Name</label>
+        <input type="text" name="name" id="typeName">
+        <br>
+        <label for="type1">Type 1</label>
+        <input type="text" name="type1" id="type1">
+        <br>
+        <label for="type2">Type 2</label>
+        <input type="text" name="type2" id="type2">
+        <br>
+        <input type="submit" value="Submit"/>
+      </form>
+    </div>
+  </section>
+  <div id="message"></div>
+  <section id="content">
+  </section>
+</body>
+</html>
