@@ -2,6 +2,8 @@ const r = require('./htmlResponses.js')
 const allPokemon = require('../data/pokedex.json');
 const allTypes = require('../data/types.json');
 
+//createPokemon
+//creates a pokemon using the info they send over
 function createPokemon(request, response){
     const {name, imgLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed} = request.body;
 
@@ -29,6 +31,7 @@ function createPokemon(request, response){
         }
     }
     
+    //create the new mon
     let newPokemon = {
         id: allPokemon.length + 1,
         num: `${allPokemon.length + 1}`,
@@ -48,9 +51,11 @@ function createPokemon(request, response){
         }
     }
 
+    //add in the optionals
     if(imgLink) newPokemon.img = imgLink;
     if(type2) newPokemon.type.push(`${type2}`);
 
+    //add the mon to the database
     allPokemon.push(newPokemon);
     return r.respond(request, response, 201, newPokemon, 'application/json')
 }
@@ -78,6 +83,7 @@ function createType(request, response){
         }
     }
 
+    //the new type object
     let newType = {
         name,
         weaknesses,
@@ -89,7 +95,8 @@ function createType(request, response){
     return r.respond(request, response, 201, newType, 'application/json')
 }
 
-//changeType will allow you to change the type of an existing pokemon (that you grab by name)
+//changeType will 
+//allows you to change the type of an existing pokemon (that you grab by name)
 function changeType(request, response){
     const {name, type1, type2}  = request.body;
     const badReqMessage = {

@@ -69,7 +69,7 @@ function handleGet(request, response, parsedUrl) {
     if(handler) {
         return handler(request, response);
     }
-    //return getHandler.getNotFound(request, response);
+    return getHandler.getNotFound(request, response);
 }
 
 function handlePost(request, response, parsedUrl) {
@@ -77,7 +77,7 @@ function handlePost(request, response, parsedUrl) {
     if(handler) {
         return parseBody(request, response, handler);
     }
-    //return getHandler.getNotFound(request, response);
+    return getHandler.getNotFound(request, response);
 }
 
 function onRequest(request, response) {
