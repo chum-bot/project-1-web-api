@@ -57,7 +57,7 @@ html, body {
 }
 
 .pokeBox img {
-  width: 200px;
+  max-width: 150px;
 }
 
 .typeBox {
