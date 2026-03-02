@@ -387,23 +387,29 @@
       </select>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Get All Pokemon (/getAll)</h2>
+      <h2 class="endpointHeader">Get All Pokemon (/getAll, GET/HEAD)</h2>
       <p>Retrieves every Pokemon in the database.</p>
       <p>No parameters needed.</p>
+      <p>Return Format: an array of JSON objects matching the data found in pokedex.json</p>
       <form id="getAllForm" action="/getAll" method="get">
         <input type="submit" value="Submit"/>
       </form>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Get All Types (/getAllTypes)</h2>
+      <h2 class="endpointHeader">Get All Types (/getAllTypes, GET/HEAD)</h2>
       <p>Retrieves every type in the database.</p>
       <p>No parameters needed.</p>
+      <p>Return Format: an array of JSON objects matching the data found in types.json</p>
+
       <form id="getAllTypesForm" action="/getAllTypes" method="get">
         <input type="submit" value="Submit"/>
       </form>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Get Pokemon By Name</h2>
+      <h2 class="endpointHeader">Get Pokemon By Name (/getByName, GET/HEAD)</h2>
+      <p>Retrieves a Pokemon by its name.</p>
+      <p>?name (string, required): The name of the Pokemon you wish to retrieve</p>
+      <p>Return Format: an array of JSON objects matching the data found in pokedex.json</p>
       <form id="getByNameForm" action="/getByName" method="get">
         <label for="getName">Name</label>
         <input type="text" name="name" id="name">
@@ -412,7 +418,10 @@
       </form>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Get Pokemon By Type</h2>
+      <h2 class="endpointHeader">Get Pokemon By Type (/getByType, GET/HEAD)</h2>
+      <p>Retrieves all Pokemon that match a specified amount of types.</p>
+      <p>?types (string, required): The type or types you wish to find Pokemon for. Sent as a comma-separated list.</p>
+      <p>Return Format: an array of JSON objects matching the data found in pokemon.json</p>
       <form id="getByTypeForm" action="/getByType" method="get">
         <div id="getByType">
 
@@ -421,7 +430,10 @@
       </form>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Get Pokemon By Pokedex Number</h2>
+      <h2 class="endpointHeader">Get Pokemon By Pokedex Number (/getByDexNumber, GET/HEAD)</h2>
+      <p>Retrieves the Pokemon that matches a specfied Pokedex number.</p>
+      <p>?dexNumber (number, required): The Pokedex number you wish to retrieve the Pokeon with.</p>
+      <p>Return Format: a JSON object matching the data found in pokemon.json</p>
       <form id="getByNumberForm" action="/getByDexNumber" method="get">
         <label for="getNumber">Pokedex Number</label>
         <input type="number" name="number" id="number" min="1" max="151">
@@ -430,7 +442,11 @@
       </form>
     </div>
     <div class="endpointBox">
-      <h2 class="endpointHeader">Create Pokemon</h2>
+      <h2 class="endpointHeader">Create Pokemon (/createPokemon, POST)</h2>
+      <p>Creates a Pokemon with the specified parameters</p>
+      <p>Name (string, required): The name of your Pokemon</p>
+      <p>Image Link (string, optional): The name of your Pokemon</p>
+      <p>Return Format: an array of JSON objects matching the data found in pokemon.json</p>
       <form id="createMonForm" action="/createPokemon" method="post">
         <label for="postName">Name</label>
         <input type="text" name="name" id="postName">
