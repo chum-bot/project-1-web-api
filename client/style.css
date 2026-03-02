@@ -53,11 +53,25 @@ html, body {
   padding: 10px;
   color: white;
   font-family: "Verdana";
+  border: 4px solid goldenrod;
+}
+
+.typeBox {
+  background-color: aquamarine;
+  border: 2px solid goldenrod;
+}
+
+.typeRelations {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  column-gap: 1em;
 }
 
 .pokeBox:hover .hoverBox{
   display: block;
 }
+
 .hoverBox {
   display: none;
   color: white;

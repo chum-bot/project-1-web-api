@@ -64,7 +64,8 @@
         }
       }
       else {
-        content.appendChild(pokemonVisual(responseObj));
+        if(responseObj.num) content.appendChild(pokemonVisual(responseObj));
+        else if (responseObj.weaknesses) content.appendChild(typeVisual(responseObj));
       }
     }
 
@@ -100,9 +101,9 @@
       `;
 
 
-      let type = `${pokemon.type[0][0].toUpperCase() + pokemon.type[0].substring(1)}`;
+      let type = `${capitalize(pokemon.type[0])}`;
       if(pokemon.type[1]) {
-        type += `/${pokemon.type[1][0].toUpperCase() + pokemon.type[1].substring(1)}`
+        type += `/${capitalize(pokemon.type[1])}`
       }
       hoverBox.innerHTML = `
       <h3 class="pokeType">${type}</h3>
@@ -132,10 +133,44 @@
       const typeBox = document.createElement('div');
       typeBox.classList.add('typeBox');
 
+      let weaknesses, resistances, immunities;
+
+      for(const t of type.weaknesses){
+        if(weaknesses === undefined) weaknesses = '';
+        weaknesses += `<p>${capitalize(t)}</p>`
+      }
+      for(const t of type.resistances){
+        if(resistances === undefined) resistances = '';
+        resistances += `<p>${capitalize(t)}</p>`
+      }
+      for(const t of type.immunities){
+        if(immunities === undefined) immunities = '';
+        immunities += `<p>${capitalize(t)}</p>`
+      }
+      
+      if(weaknesses === undefined) weaknesses = "None";
+      if(resistances === undefined) resistances = "None";
+      if(immunities === undefined) immunities = "None";
+
       typeBox.innerHTML = `
-      <h2>${type.name}</h2>
-      <
+      <h2>${capitalize(type.name)}</h2>
+      <div class="typeRelations">
+        <div>
+        <h3>Weaknesses</h3>
+        ${weaknesses}
+        </div>
+        <div>
+        <h3>Resistances</h3>
+        ${resistances}
+        </div>
+        <div>
+        <h3>Immunities</h3>
+        ${immunities}
+        </div>
+      </div>
       `
+
+      return typeBox;
     }
 
     //createPokemon
@@ -242,6 +277,10 @@
       await sendPost(form, formData)
     }
 
+    function capitalize(word) {
+      return word[0].toUpperCase() + word.substring(1);
+    }
+
     //using this to update the type displays as the types array is updated via createType
     //handleResponse as well as init will use this to populate the form elements when types are updated
     async function updateTypes() {
@@ -278,7 +317,7 @@
         typeOption.id = t.name;
 
         const label = document.createElement('label');
-        label.innerText = t.name[0].toUpperCase() + t.name.substring(1);
+        label.innerText = capitalize(t.name);
         label.for = t.name;
 
         h.appendChild(typeOption);
