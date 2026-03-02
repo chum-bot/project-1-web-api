@@ -7,26 +7,36 @@
   <script>
     async function handleResponse(response) {
       const content = document.querySelector('#content');
+      const message = document.querySelector('#message');
+
+      content.innerHTML = '';
 
       switch(response.status) {
         case 200:
-          content.innerHTML = '<b>Success</b>'
+          message.innerHTML = '<b>Success</b>'
           break;
         case 201:
-          content.innerHTML = '<b>Created</b>'
+          message.innerHTML = '<b>Created</b>'
           break;
         case 204:
-          content.innerHTML = '<b>Updated (No Content)</b>'
+          message.innerHTML = '<b>Updated (No Content)</b>'
           break;
         case 400:
-          content.innerHTML = '<b>Bad Request</b>'
+          message.innerHTML = '<b>Bad Request</b>'
           break;
         case 404:
-          content.innerHTML = '<b>Not Found</b>'
+          message.innerHTML = '<b>Not Found</b>'
           break;
         default: 
-          content.innerHTML = '<b>Status code not implemented by client</b>'
+          message.innerHTML = '<b>Status code not implemented by client</b>'
       }
+
+      //ALRIGHT ALRIGHT ALRIGHT
+      //response handling time now that we have all the endpoints functioning
+      //our returns will go into the content box, as shown above
+      //we want to turn a pokemon into a box that has all its stuff in it,
+      //and we want to turn types into boxes with all their weakness resistances and immunities
+      //ideally put into a list
 
       const responseObj = await response.json();
       //updating types and selection limit
@@ -37,7 +47,24 @@
         else updateTypes();
       }
       if(responseObj.message) {
-        content.innerHTML += `<p>${responseObj.message}</p>`
+        message.innerHTML += `<p>${responseObj.message}</p>`
+      }
+
+      //checking ithe different types of responses there can be
+      if(Array.isArray(responseObj)) {
+        if(responseObj[0].num) {
+          for(const pokemon of responseObj){
+            content.appendChild(pokemonVisual(pokemon));
+          }
+        }
+        else if(responseObj[0].weaknesses) {
+          for(const type of responseObj){
+            content.appendChild(typeVisual(type));
+          }
+        }
+      }
+      else {
+        content.appendChild(pokemonVisual(responseObj));
       }
     }
 
@@ -56,6 +83,59 @@
       });
 
       handleResponse(response)
+    }
+
+    //pokemonVisual
+    //Creates a visual box with the information on a Pokemon as it appears in the returned table
+    function pokemonVisual(pokemon){
+      const pokeBox = document.createElement("div");
+      const hoverBox = document.createElement("div")
+      pokeBox.classList.add("pokeBox"); 
+      hoverBox.classList.add("hoverBox"); //and then we'll make it look better with the stylesheet
+
+      pokeBox.innerHTML = `
+      <img src="${pokemon.img}">
+      <p class="pokeNum">#${pokemon.num}</p>
+      <p class="pokeName">${pokemon.name}</p>
+      `;
+
+
+      let type = `${pokemon.type[0][0].toUpperCase() + pokemon.type[0].substring(1)}`;
+      if(pokemon.type[1]) {
+        type += `/${pokemon.type[1][0].toUpperCase() + pokemon.type[1].substring(1)}`
+      }
+      hoverBox.innerHTML = `
+      <h3 class="pokeType">${type}</h3>
+      <p class="pokeHeight">Height: ${pokemon.height}</p>
+      <p class="pokeWeight">Weight: ${pokemon.weight}</p>
+      <div class="statBox">
+        <p>HP:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.hp / 255)}px;background-color:red;">${pokemon.stats.hp}</div>
+        <p>Attack:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.atk / 255)}px;background-color:orange;">${pokemon.stats.atk}</div>
+        <p>Defense:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.def / 255)}px;background-color:yellow;">${pokemon.stats.def}</div>
+        <p>Sp. Atk:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.spAtk / 255)}px;background-color:greenyellow;">${pokemon.stats.spAtk}</div>
+        <p>Sp. Def:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.spDef / 255)}px;background-color:skyblue;"">${pokemon.stats.spDef}</div>
+        <p>Speed:</p>
+        <div class="statBar" style="width:${250*(pokemon.stats.speed / 255)}px;background-color:rebeccapurple;">${pokemon.stats.speed}</div>
+      </div>
+      `
+      pokeBox.appendChild(hoverBox);
+
+      return pokeBox;
+    }
+
+    function typeVisual(type){
+      const typeBox = document.createElement('div');
+      typeBox.classList.add('typeBox');
+
+      typeBox.innerHTML = `
+      <h2>${type.name}</h2>
+      <
+      `
     }
 
     //createPokemon
@@ -266,7 +346,6 @@
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Submit"/>
-        <input type="submit" value="Submit Head"/>
       </form>
     </div>
     <div class="endpointBox">
@@ -348,6 +427,7 @@
       </form>
     </div>
   </section>
+  <div id="message"></div>
   <section id="content">
   </section>
 </body>
