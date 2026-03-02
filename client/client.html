@@ -94,6 +94,7 @@
       pokeBox.classList.add("pokeBox"); 
       hoverBox.classList.add("hoverBox"); //and then we'll make it look better with the stylesheet
 
+      console.log(pokemon);
       pokeBox.innerHTML = `
       <img src="${pokemon.img}">
       <p class="pokeNum">#${pokemon.num}</p>
@@ -177,7 +178,7 @@
     //we're building the request body to send into sendPost
     async function createPokemon(form) {
       const name = form.querySelector('#postName').value;
-      const imageLink = form.querySelector('#postImgLink').value;
+      const imgLink = form.querySelector('#postImgLink').value;
       const type1 = form.querySelector('#postType1').value;
       const type2 = form.querySelector('#postType2').value;
       const height = form.querySelector('#postHeight').value;
@@ -189,7 +190,7 @@
       const spDef = form.querySelector('#spDef').value;
       const speed = form.querySelector('#speed').value;
 
-      const formData = JSON.stringify({name, imageLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed})
+      const formData = JSON.stringify({name, imgLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed})
 
       sendPost(form, formData)
     }

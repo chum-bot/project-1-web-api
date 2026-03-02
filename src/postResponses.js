@@ -49,6 +49,7 @@ function createPokemon(request, response){
     }
 
     if(imgLink) newPokemon.img = imgLink; //i should proooooobably add some validation here
+    console.log(imgLink);
     if(type2) newPokemon.type.push(`${type2}`);
 
     allPokemon.push(newPokemon);
