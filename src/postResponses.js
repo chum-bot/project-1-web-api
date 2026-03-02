@@ -3,14 +3,14 @@ const allPokemon = require('../data/pokedex.json');
 const allTypes = require('../data/types.json');
 
 function createPokemon(request, response){
-    const {name, imgLink, type1, type2, height, weight} = request.body;
+    const {name, imgLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed} = request.body;
 
     const badReqMessage = {
         message: "Your request was missing a required parameter.",
         id: "badRequest"
     }
 
-    if(!name || !type1 || !height || !weight) {
+    if(!name || !type1 || !height || !weight || !hp || !atk || !def || !spAtk || !spDef || !speed) {
         return r.respond(request, response, 400, badReqMessage, "application/json");
     }
 
@@ -38,6 +38,14 @@ function createPokemon(request, response){
         ],
         height: `${height} m`,
         weight: `${weight} kg`,
+        stats: {
+            hp,
+            atk,
+            def,
+            spAtk,
+            spDef,
+            speed
+        }
     }
 
     if(imgLink) newPokemon.img = imgLink; //i should proooooobably add some validation here

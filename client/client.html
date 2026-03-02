@@ -182,8 +182,14 @@
       const type2 = form.querySelector('#postType2').value;
       const height = form.querySelector('#postHeight').value;
       const weight = form.querySelector('#postWeight').value;
+      const hp = form.querySelector('#hp').value;
+      const atk = form.querySelector('#atk').value;
+      const def = form.querySelector('#def').value;
+      const spAtk = form.querySelector('#spAtk').value;
+      const spDef = form.querySelector('#spDef').value;
+      const speed = form.querySelector('#speed').value;
 
-      const formData = JSON.stringify({name, imageLink, type1, type2, height, weight})
+      const formData = JSON.stringify({name, imageLink, type1, type2, height, weight, hp, atk, def, spAtk, spDef, speed})
 
       sendPost(form, formData)
     }
@@ -308,6 +314,21 @@
       const typeHolders = [weak, res, immune, get]
       typeHolders.forEach(h => h.innerHTML = '');
 
+
+      //i will add the extra box for resisting yourself
+        // const typeOption = document.createElement('input');
+        // typeOption.type = 'checkbox';
+        // typeOption.name = 'type';
+        // typeOption.value = t.name;
+        // typeOption.id = t.name;
+
+        // const label = document.createElement('label');
+        // label.innerText = capitalize(t.name);
+        // label.for = t.name;
+
+        // h.appendChild(typeOption);
+        // h.appendChild(label);
+
       for(const t of allTypes){
         for(const h of typeHolders){
         const typeOption = document.createElement('input');
@@ -425,6 +446,24 @@
         <br>
         <label for="postWeight">Weight (kg)</label>
         <input type="number" name="weight" id="postWeight" step=".01">
+        <br>
+        <label for="hp">HP</label>
+        <input type="number" name="hp" id="hp" min="1" max="255">
+        <br>
+        <label for="atk">Attack</label>
+        <input type="number" name="atk" id="atk" min="1" max="255">
+        <br>
+        <label for="def">Defense</label>
+        <input type="number" name="def" id="def" min="1" max="255">
+        <br>
+        <label for="spAtk">Sp. Atk</label>
+        <input type="number" name="spAtk" id="spAtk" min="1" max="255">
+        <br>
+        <label for="spDef">Sp. Def</label>
+        <input type="number" name="spDef" id="spDef" min="1" max="255">
+        <br>
+        <label for="speed">Speed</label>
+        <input type="number" name="speed" id="speed" min="1" max="255">
         <br>
         <input type="submit" value="Submit"/>
       </form>
